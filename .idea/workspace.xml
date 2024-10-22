@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b0134cf-7ca1-4c2e-842c-770c9bdf3ace" name="Changes" comment="Printing board in progress (not complete)" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Ono-feat" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ono033&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ono033/Backgammon_Game_Java.git&quot;,
+    &quot;accountId&quot;: &quot;7a73a402-e1c0-4096-b45b-4c0cb167726c&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2nr5CZJ7iuq4cDEVNeAToPL7WpS" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Board.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/onose/Backgammon_Game_Java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b0134cf-7ca1-4c2e-842c-770c9bdf3ace" name="Changes" comment="" />
+      <created>1729718227701</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729718227701</updated>
+      <workItem from="1729718228825" duration="1622000" />
+      <workItem from="1729945305814" duration="15666000" />
+      <workItem from="1730198165355" duration="2810000" />
+    </task>
+    <task id="LOCAL-00001" summary="Creating Game Class">
+      <option name="closed" value="true" />
+      <created>1729718664272</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729718664272</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Creating Game Class">
+      <option name="closed" value="true" />
+      <created>1729718847099</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729718847099</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Creating Main, Game, Checker Classes and Checker Properties Enum">
+      <option name="closed" value="true" />
+      <created>1729951099465</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729951099465</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Creating Main, Game, Checker Classes and Checker Properties Enum">
+      <option name="closed" value="true" />
+      <created>1729951283170</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729951283170</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Creating Main, Game, Checker Classes and Checker Properties Enum">
+      <option name="closed" value="true" />
+      <created>1730061961710</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730061961713</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Board basics created">
+      <option name="closed" value="true" />
+      <created>1730160956419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730160956420</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Printing board in progress (not complete)">
+      <option name="closed" value="true" />
+      <created>1730162935353</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730162935355</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Printing board in progress (not complete)">
+      <option name="closed" value="true" />
+      <created>1730209103726</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730209103726</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Printing board in progress (not complete)">
+      <option name="closed" value="true" />
+      <created>1730209143660</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730209143660</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Ono-feat" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Creating Game Class" />
+    <MESSAGE value="Creating Main, Game, Checker Classes and Checker Properties Enum" />
+    <MESSAGE value="Board basics created" />
+    <MESSAGE value="Printing board in progress" />
+    <MESSAGE value="Printing board in progress (not complete)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Printing board in progress (not complete)" />
+  </component>
+</project>
