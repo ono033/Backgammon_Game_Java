@@ -1,9 +1,25 @@
 import java.util.*;
 
 public class Game {
-    public static void main(String[] args) {
-        System.out.println("hello");
+
+
+
+
+    public void Game() {
+        setupBoard();
+        displayBoard();
+
     }
 
+    public void setupBoard(){
+
+
+
+    }
+
+    public void displayBoard() {
+
+
+    }
 
 }
