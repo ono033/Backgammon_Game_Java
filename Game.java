@@ -1,8 +1,8 @@
 import java.util.*;
 
+// seun is smelly
+
 public class Game {
-
-
 
 
     public void Game() {
@@ -13,12 +13,9 @@ public class Game {
 
     public void setupBoard(){
 
-
-
     }
 
     public void displayBoard() {
-
 
     }
 
