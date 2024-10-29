@@ -38,11 +38,11 @@ public class Player {
     public void displayPlayerInfo() {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
-
-    public static void main(String[] args) {
-        Player player = new Player();
-        player.displayPlayerInfo();
-    }
+//Example of Main
+    //public static void main(String[] args) {
+       // Player player = new Player();
+       // player.displayPlayerInfo();
+    //}
 
 
 }
