@@ -1,43 +1,58 @@
 import java.util.Scanner;
 
 public class Player {
-    private String Player1;
-    private String Player2;
+    private static int playerCount = 0;
+    private String playerName;
+    private int score;
+    private int playerNumber;
 
-    public String getPlayer1() {
-        return Player1;
+    public Player() {
+        playerCount++;
+        this.playerNumber = playerCount;
+        enterPlayerName();
     }
 
-    public void setPlayer1(String Player1) {
-        this.Player1 = Player1;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public String getPlayer2() {
-        return Player2;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
-    public void setPlayer2(String Player2) {
-        this.Player2 = Player2;
+    public int getScore() {
+        return score;
     }
 
-    public void enterPlayerNames() {
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void enterPlayerName() {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Player 1, please enter your name: ");
-        setPlayer1(scanner.nextLine());
-
-        System.out.print("Player 2, please enter your name: ");
-        setPlayer2(scanner.nextLine());
+        System.out.print("Player " + playerNumber + ", please enter your name: ");
+        setPlayerName(scanner.nextLine());
     }
 
-    public void displayPlayerNames() {
-        System.out.println("Player 1: " + getPlayer1());
-        System.out.println("Player 2: " + getPlayer2());
+    public void displayPlayerInfo() {
+        System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
-//Example of how it will be implemented in main code
-   // public static void main(String[] args) {
-    //    Player player = new Player();
-    //    player.enterPlayerNames();
-     //   player.displayPlayerNames();
-   // }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of players: ");
+        int numPlayers = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Player[] players = new Player[numPlayers];
+
+        for (int i = 0; i < numPlayers; i++) {
+            players[i] = new Player();
+        }
+
+        System.out.println("\nPlayer Information:");
+        for (Player player : players) {
+            player.displayPlayerInfo();
+        }
+    }
 }
