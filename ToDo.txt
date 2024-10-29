@@ -1,0 +1,8 @@
+Make a checkerpile class?
+add isturn to player
+
+in printBoard change middle bar to have checkers in middle
+
+tests??
+
+tell them about the zero indexing problem
