@@ -1,6 +1,5 @@
 import java.util.*;
 
-// seun is smelly
 
 public class Game {
 
