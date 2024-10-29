@@ -39,10 +39,10 @@ public class Player {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
 //Example of Main
-    //public static void main(String[] args) {
-       // Player player = new Player();
-       // player.displayPlayerInfo();
-    //}
+    public static void main(String[] args) {
+       Player player = new Player();
+       player.displayPlayerInfo();
+    }
 
 
 }
