@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b0134cf-7ca1-4c2e-842c-770c9bdf3ace" name="Changes" comment="Initial commit">
+    <list default="true" id="1b0134cf-7ca1-4c2e-842c-770c9bdf3ace" name="Changes" comment="30/10 Changes to board">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Checker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Checker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Checker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Checker.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +124,7 @@
       <workItem from="1729945305814" duration="15666000" />
       <workItem from="1730198165355" duration="2810000" />
       <workItem from="1730209667497" duration="1763000" />
-      <workItem from="1730221183493" duration="1752000" />
+      <workItem from="1730221183493" duration="5221000" />
     </task>
     <task id="LOCAL-00001" summary="Creating Game Class">
       <option name="closed" value="true" />
@@ -247,7 +246,31 @@
       <option name="project" value="LOCAL" />
       <updated>1730221426943</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1730300328504</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1730300328505</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1730300366477</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1730300366477</updated>
+    </task>
+    <task id="LOCAL-00018" summary="30/10 Changes to board">
+      <option name="closed" value="true" />
+      <created>1730300392984</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1730300392984</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,7 +305,9 @@
     <MESSAGE value="Board basics created" />
     <MESSAGE value="Printing board in progress" />
     <MESSAGE value="Printing board in progress (not complete)" />
+    <MESSAGE value="30/10 changes in board" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="30/10 Changes to board" />
+    <option name="LAST_COMMIT_MESSAGE" value="30/10 Changes to board" />
   </component>
 </project>

@@ -8,7 +8,7 @@ public class Checker {
     this.type = CheckerProperties.X;
     }
 
-        if (CheckerProperties.O == CheckerProperties.valueOf(type)){
+        else if (CheckerProperties.O == CheckerProperties.valueOf(type)){
             this.type = CheckerProperties.O;
         }
 

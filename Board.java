@@ -23,7 +23,6 @@ public class Board {
 initialiseVariables();
 setUpBoard();
 
-
     }
 
 
@@ -45,7 +44,6 @@ setUpBoard();
     }
 
 
-
     public Checker getChecker(int pipIndex, int checkerIndex) {
         ArrayList<Checker> pip = getPip(pipIndex);
         if (checkerIndex >= 0 && checkerIndex < pip.size()) {
@@ -54,7 +52,6 @@ setUpBoard();
             return null; // Returns null if the index is out of bounds
         }
     }
-
 
 
     // input is the pip index to add to and checker you want to add to the pip
@@ -95,11 +92,43 @@ setUpBoard();
 
     public void printBoard() {
 //addCheckertoPip(13, new Checker("X"));
-        System.out.println("13--+---+---+---+---18 BAR  19--+---+---+---+---24  OFF");
+        System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24  OFF");
 
-        for(int i= 0;i<6;i++) {
+        for(int i= 0;i<5;i++) {
+
+
 
             for (int j = NUMBEROFPIPS / 2 + 1; j <= NUMBEROFPIPS; j++) { // Print pips 13-24
+
+                if(j==19){  // space for bar
+                    System.out.print("    ---" );
+                }
+
+                Checker checker = getChecker(j,i);
+                if(checker!=null) {
+
+                    System.out.print(checker.toString());
+                }
+
+
+                else{
+                    System.out.print("|");
+                }
+                System.out.print("---");
+
+            }
+
+            System.out.println();
+        }
+        System.out.println("-+--+---+---+---+---+- -    -  -+--+---+---+---+---+- ");
+
+        for(int i= 0;i<5;i++) {
+
+            for (int j = NUMBEROFPIPS / 2 ; j > 0; j--) { // Print pips 13-24
+
+                if(j==6){
+                    System.out.print("    ---" );
+                }
                 Checker checker = getChecker(j,i);
                 if(checker!=null) {
                     System.out.print(checker.toString());
@@ -113,9 +142,7 @@ setUpBoard();
 
             System.out.println();
         }
-        System.out.println("-+--+---+---+---+---+- ---  -+--+---+---+---+---+- ");
-
-        System.out.println("12--+---+---+---+---07 BAR  06--+---+---+---+---01  OFF");
+        System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
 
     }
     public static void main(String[] args) {
