@@ -21,7 +21,7 @@ public class Board {
     public Board() {
 // initialise
 initialiseVariables();
-
+setUpBoard();
 
 
     }
@@ -64,10 +64,37 @@ initialiseVariables();
 
     }
 
+    public void addCheckerstoPip(String type, int pipIndex, int number){
+
+        for(int i=0;i<number;i++){
+            Checker checker = new Checker(type);
+            addCheckertoPip(pipIndex,checker);
+        }
+
+
+    }
+
+
+
+        public void setUpBoard(){
+        addCheckerstoPip("X", 1,2);
+            addCheckerstoPip("X", 12,5);
+            addCheckerstoPip("X", 17,3);
+            addCheckerstoPip("X", 20 ,5);
+
+            addCheckerstoPip("O", 24,2);
+            addCheckerstoPip("O", 13,5);
+            addCheckerstoPip("O", 8,3);
+            addCheckerstoPip("O", 6 ,5);
+        }
+
+
+
+
 
 
     public void printBoard() {
-
+//addCheckertoPip(13, new Checker("X"));
         System.out.println("13--+---+---+---+---18 BAR  19--+---+---+---+---24  OFF");
 
         for(int i= 0;i<6;i++) {
@@ -75,7 +102,7 @@ initialiseVariables();
             for (int j = NUMBEROFPIPS / 2 + 1; j <= NUMBEROFPIPS; j++) { // Print pips 13-24
                 Checker checker = getChecker(j,i);
                 if(checker!=null) {
-                    System.out.println(checker.toString());
+                    System.out.print(checker.toString());
                 }
                 else{
                     System.out.print("|");

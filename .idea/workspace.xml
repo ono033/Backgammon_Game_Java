@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1b0134cf-7ca1-4c2e-842c-770c9bdf3ace" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Checker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Checker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Checker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Backgammon_Game_Java/Checker.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +67,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Board.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Ono-feat&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -121,6 +125,7 @@
       <workItem from="1729945305814" duration="15666000" />
       <workItem from="1730198165355" duration="2810000" />
       <workItem from="1730209667497" duration="1763000" />
+      <workItem from="1730221183493" duration="1752000" />
     </task>
     <task id="LOCAL-00001" summary="Creating Game Class">
       <option name="closed" value="true" />
@@ -234,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730221044600</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1730221426943</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1730221426943</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
