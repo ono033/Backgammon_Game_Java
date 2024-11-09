@@ -1,15 +1,45 @@
-# Ignore IntelliJ IDEA files
+# Ignore compiled class files
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IntelliJ IDEA files
 .idea/
 *.iml
+*.iws
+
+# Ignore logs and temp files
+logs/
 *.log
+*.tmp
 
-# Ignore build output
-/out/
-/build/
-
-# Ignore OS-specific files ..
+# OS-specific files
 .DS_Store
 Thumbs.db
 
-# Ignore all compiled class files ..
+# Ignore build output directories
+out/
+build/
+
+# Ignore Maven and Gradle files
+target/
+!src/main/resources/
+!src/test/resources/
+*.jar
+*.war
+*.ear
 *.class
+
+# Gradle files
+.gradle
+build/
+
+# Maven files
+.mvn
+target/
+
+# Other
+*.swp
