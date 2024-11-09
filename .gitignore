@@ -11,5 +11,5 @@
 .DS_Store
 Thumbs.db
 
-# Ignore all compiled class files
+# Ignore all compiled class files ..
 *.class
