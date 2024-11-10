@@ -46,7 +46,7 @@ setUpBoard();
     }
 
 
-    public Checker getChecker(int pipIndex, int checkerIndex) {
+            public Checker getChecker(int pipIndex, int checkerIndex) {  // takes 0 indexing into account, so use pip number displayed on board
         ArrayList<Checker> pip = getPip(pipIndex);
         if (checkerIndex >= 0 && checkerIndex < pip.size()) {
             return pip.get(checkerIndex);
@@ -91,16 +91,29 @@ setUpBoard();
 
 
 
-
-    public void printBoard() {
+/*
+    public void printBoard( int playerNumber) {
 //addCheckertoPip(13, new Checker("X"));
+        int PIPOFFSET = 24;
+
+
         System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24  OFF");
 
         for(int i= 0;i<5;i++) {
+           // int start;
+            //int end;
 
+           int start = (NUMBEROFPIPS / 2 + 1);
+           int end =NUMBEROFPIPS;
 
+            if (playerNumber ==2){
+            start = 24 - start;
+            end = 24 - end;
+            }
 
-            for (int j = NUMBEROFPIPS / 2 + 1; j <= NUMBEROFPIPS; j++) { // Print pips 13-24
+            // if player 2   
+
+            for (int j = (NUMBEROFPIPS / 2 + 1); j <= NUMBEROFPIPS; j++) { // Print pips 13-24
 
                 if(j==19){  // space for bar
                     System.out.print("    ---" );
@@ -124,9 +137,19 @@ setUpBoard();
         }
         System.out.println("-+--+---+---+---+---+- -    -  -+--+---+---+---+---+- ");
 
+
+        int start =NUMBEROFPIPS / 2;
+        int end = 0;
+
+        if (playerNumber ==2){
+            start = 25 - start;
+            end = 25 - end;
+        }
+
+
         for(int i= 0;i<5;i++) {
 
-            for (int j = NUMBEROFPIPS / 2 ; j > 0; j--) { // Print pips 13-24
+            for (int j = start ; j > end; j--) { // Print pips 13-24
 
                 if(j==6){
                     System.out.print("    ---" );
@@ -147,11 +170,91 @@ setUpBoard();
         System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
 
     }
+*/
 
+    public void printBoard( int playerNumber) {
+
+        System.out.println("Player" + playerNumber + "'s Board");
+        System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24  OFF");
+
+        for(int i= 0;i<5;i++) {
+
+            int start = (NUMBEROFPIPS / 2 + 1);// Start at pip 13
+            int end =NUMBEROFPIPS; // End at pip 24
+            int increment =1;
+
+            if (playerNumber ==2){
+                start = 12;    //24 - start;
+                end = 1;        //24 - end;
+                increment = -1;
+            }
+
+
+            for (int j = start; (playerNumber == 2) ? j >= end : j <= end; j += increment) { // Print pips 13-24
+
+                if(j==19 ||j==6){  // space for bar
+                    System.out.print("    ---" );
+                }
+
+                Checker checker = getChecker(j,i);
+                if(checker!=null) {
+
+                    System.out.print(checker.toString());
+                }
+
+
+                else{
+                    System.out.print("|");
+                }
+                System.out.print("---");
+
+            }
+
+            System.out.println();
+        }
+        System.out.println("-+--+---+---+---+---+- -    -  -+--+---+---+---+---+- ");
+
+
+        int start = NUMBEROFPIPS / 2;
+        int end = 1;
+        int increment = -1;
+
+        if (playerNumber ==2){
+            start = 13; //25 - start;
+            end = 24;   //25 - end;
+            increment = 1;
+        }
+
+
+        for(int i= 0;i<5;i++) {
+
+            for (int j = start; (playerNumber == 2) ? j <= end : j >= end; j += increment){ // Print pips 13-24
+
+                if(j==6 ||j==19){
+                    System.out.print("    ---" );
+                }
+                Checker checker = getChecker(j,i);
+                if(checker!=null) {
+                    System.out.print(checker.toString());
+                }
+                else{
+                    System.out.print("|");
+                }
+                System.out.print("---");
+
+            }
+
+            System.out.println();
+        }
+        System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
+
+    }
 
     public static void main(String[] args) {
        Board board = new Board();
-       board.printBoard();
+       board.printBoard(1);
+
+        board.printBoard(2);
 
     }
 
