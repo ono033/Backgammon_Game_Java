@@ -7,7 +7,7 @@ public class Command {
     private static final Set<String> VALID_COMMANDS = new HashSet<>();
 
     static {
-        // Populate the set with valid commands in lowercase
+        
         VALID_COMMANDS.add("roll");
         VALID_COMMANDS.add("quit");
         VALID_COMMANDS.add("hint");
