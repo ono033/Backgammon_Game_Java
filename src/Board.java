@@ -249,6 +249,26 @@ setUpBoard();
         System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
 
     }
+        public void diceRoll() {
+
+        Random random = new Random();
+                // Roll two dice
+                int die1 = random.nextInt(6) + 1;
+                int die2 = random.nextInt(6) + 1;
+
+                // Display the result of each dice
+                if (die1==die2){
+                System.out.println("You rolled:");
+                System.out.println("Die 1: " + die1);
+                System.out.println("Die 2: " + die2);
+                System.out.println("You rolled a double!");
+                System.out.println("You can roll " + die1 +"-"+ die1 +"-"+ die1 +"-"+ die1);
+        }
+    else{
+                    System.out.println("You rolled:");
+                    System.out.println("Die 1: " + die1);
+                    System.out.println("Die 2: " + die2);
+                }}
 
     public static void main(String[] args) {
        Board board = new Board();
