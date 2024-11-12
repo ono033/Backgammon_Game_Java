@@ -24,8 +24,8 @@ public class Board {
 
     public Board() {
 // initialise
-        this.player1Type = CheckerProperties.X;  // Example: Player 1 uses 'X'
-        this.player2Type = CheckerProperties.O;  // Example: Player 2 uses 'O'
+        this.player1Type = CheckerProperties.O;  // Example: Player 1 uses 'X'
+        this.player2Type = CheckerProperties.X;  // Example: Player 2 uses 'O'
 initialiseVariables();
 setUpBoard();
 
@@ -269,10 +269,10 @@ setUpBoard();
     }
 
 public int playerDirection(int playerNumber){
-        if(playerNumber==1) return 1;
+        if(playerNumber==1) return -1;
 
         if (playerNumber == 2){
-            return -1;
+            return 1;
         }
         return 0;
 }
@@ -305,6 +305,8 @@ public int playerDirection(int playerNumber){
         //ono add error check for wrong colour checker
         int playerDirection = playerDirection(playerNumber);
         int destinationPipindex = sourcePipindex+ (playerDirection * numberofMoves);
+        System.out.println("dest:" + destinationPipindex);
+
         //error check ono for ourtside of 0 and 24
 
         if (destinationPipindex < 1|| destinationPipindex > NUMBEROFPIPS){ // ono add something for beargn off
@@ -315,34 +317,88 @@ public int playerDirection(int playerNumber){
         ArrayList<Checker> destinationPip = getPip(destinationPipindex);
 
         // ono add check foir empky
-        Checker moveChecker = getTopCheckerfromPip(sourcePipindex));
-
+        Checker moveChecker = getTopCheckerfromPip(sourcePipindex);
+        System.out.println("movechecker" + moveChecker.toString());
         boolean rightCheckertype = isPlayerChecker(playerNumber, moveChecker);
-
+//if no checker or not players checker on spot
         if (moveChecker==null || !rightCheckertype ){
+            System.out.println("moveChecker==null || !rightCheckertype");
             return MoveType.ILLEGAL;
+        }
+        // move checker is player's
+        else{
+
+            int destinationSize = destinationPip.size();
+            System.out.println("wefwef" + destinationSize);
+
+            Checker destinationTopChecker = getTopCheckerfromPip(destinationPipindex);
+            int numberofCheckersonDestination;
+            boolean sameChecker =compareCheckers(destinationTopChecker, moveChecker);
+
+
+            //destination emptpy
+            if(destinationSize==0){
+                return MoveType.LEGAL;
+            }
+            //destination has 1 of other persons checkers
+            if(destinationSize==1 && !sameChecker){
+                return MoveType.KNOCKOUT;
+            }
+
+            //if sametype of checker
+            if(destinationSize>0 && sameChecker){
+                return MoveType.LEGAL;
+            }
+
+
         }
 
 
-
-
-
-
-
-
-
-
         return MoveType.ILLEGAL;
-
-
 
         //direction of player
 
 
 
 
+    }
 
+    /*public ArrayList<ArrayList<Integer>> legalMoves(int numberOfMoves, int playerNumber) {
 
+        ArrayList<ArrayList<Integer>> validMoves = new ArrayList<>();
+        int direction = playerDirection(playerNumber); //?
+
+        for (int startPip = 1; startPip <= NUMBEROFPIPS; startPip++) {
+
+            int destinationPip = startPip + direction * numberOfMoves; //?
+
+            //loop thru pips
+            MoveType result = isLegal(playerNumber, startPip, numberOfMoves);
+
+            if (result == MoveType.LEGAL || result == MoveType.KNOCKOUT) {
+                ArrayList<Integer> move = new ArrayList<>();
+                move.add(startPip);         // Store the starting pip
+                move.add(destinationPip);   // Store the destination pip
+                move.add(result == MoveType.LEGAL ? 1 : 2);  // 1 for LEGAL, 2 for KNOCKOUT
+                validMoves.add(move);
+            }
+        }
+
+        return validMoves;
+
+        }
+
+  */
+
+/*
+    public static void main(String[] args) {
+        Board board = new Board();
+        board.setUpBoard();  // Ensure the board is correctly set up for the game
+
+        int playerNumber = 1;  // Specify the player number you want to check moves for
+        int numberOfMoves = 4;  // Specify the number of steps you want to check for each move
+        ArrayList<ArrayList<Integer>> moves = board.legalMoves(numberOfMoves, playerNumber);
+        printValidMoves(moves);
     }
 
 
@@ -350,10 +406,38 @@ public int playerDirection(int playerNumber){
 
 
 
-
-
-
     public static void main(String[] args) {
+        Board board = new Board();
+        board.setUpBoard(); // Make sure the board is set up with initial checkers
+
+        // Test move legality
+        // Assuming player 1 is moving checker from pip 1 to pip 5
+        System.out.println("Testing Move from Pip 24 to Pip 2 for Player 1:");
+        MoveType move1 = board.isLegal(1, 24, 1);
+        System.out.println("Move 1: " + move1);
+
+        // Testing move that should be illegal if no checker exists in source
+        System.out.println("Testing Move from Pip 8 to Pip 6 for Player 1 (no checker expected at source):");
+        MoveType move2 = board.isLegal(1, 8, 6);
+        System.out.println("Move 2: " + move2);
+
+        // Testing a move that results in a knockout
+        System.out.println("Testing Move from Pip 12 to Pip 13 for Player 2 (should be a knockout if enemy checker present):");
+        MoveType move3 = board.isLegal(2, 12,2 );
+        System.out.println("Move 3: " + move3);
+
+        // Testing a move that is out of bounds
+        System.out.println("Testing Move from Pip 24 to Pip 28 for Player 2 (out of bounds):");
+        MoveType move4 = board.isLegal(2, 24, 4);
+        System.out.println("Move 4: " + move4);
+
+        // Testing another legal move
+        System.out.println("Testing Move from Pip 17 to Pip 13 for Player 1:");
+        MoveType move5 = board.isLegal(1, 17, -4);
+        System.out.println("Move 5: " + move5);
+    }
+
+    /*public static void main(String[] args) {
        Board board = new Board();
        board.printBoard(1);
 
@@ -372,7 +456,7 @@ public int playerDirection(int playerNumber){
 
 
 
-    }
+    } */
 
 
 }

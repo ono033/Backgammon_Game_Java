@@ -2,7 +2,7 @@
 
 public class Checker {
 
-    private CheckerProperties type;
+    public CheckerProperties type;
 
     public  Checker(String type){
 // hi
