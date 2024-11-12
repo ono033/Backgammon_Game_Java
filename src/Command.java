@@ -7,7 +7,7 @@ public class Command {
     private static final Set<String> VALID_COMMANDS = new HashSet<>();
 
     static {
-
+//
         VALID_COMMANDS.add("roll");
         VALID_COMMANDS.add("quit");
         VALID_COMMANDS.add("hint");
