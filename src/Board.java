@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 
 
 public class Board {
@@ -18,10 +15,17 @@ public class Board {
     private ArrayList<ArrayList<Checker>> pips;
 
 
+    public enum MoveType {
+        LEGAL, ILLEGAL, KNOCKOUT
+    }
 
+    private CheckerProperties player1Type;
+    private CheckerProperties player2Type;
 
     public Board() {
 // initialise
+        this.player1Type = CheckerProperties.X;  // Example: Player 1 uses 'X'
+        this.player2Type = CheckerProperties.O;  // Example: Player 2 uses 'O'
 initialiseVariables();
 setUpBoard();
 
@@ -76,7 +80,7 @@ setUpBoard();
 
 
         public void setUpBoard(){
-        addCheckerstoPip("X", 1,2);
+            addCheckerstoPip("X", 1,2);
             addCheckerstoPip("X", 12,5);
             addCheckerstoPip("X", 17,3);
             addCheckerstoPip("X", 20 ,5);
@@ -88,7 +92,21 @@ setUpBoard();
         }
 
 
+    public CheckerProperties getPlayerType(int playerNumber) {
+        if (playerNumber == 1) {
+            return player1Type;
+        } else if (playerNumber == 2) {
+            return player2Type;
+        } else {
+            System.out.println("Invalid player number");
+            return null;
+        }
+    }
 
+    public boolean isPlayerChecker(int playerNumber, Checker checker) {
+        CheckerProperties playerType = getPlayerType(playerNumber);
+        return checker != null && checker.getType() == playerType;
+    }
 
 
 /*
@@ -250,11 +268,109 @@ setUpBoard();
 
     }
 
+public int playerDirection(int playerNumber){
+        if(playerNumber==1) return 1;
+
+        if (playerNumber == 2){
+            return -1;
+        }
+        return 0;
+}
+
+    public Checker getTopCheckerfromPip(int pipIndex) {
+
+   int size = getPip(pipIndex).size();
+        Checker topChecker = getChecker(pipIndex,size-1);
+
+        if(topChecker!=null)System.out.print("topchecker:"+topChecker.toString());
+
+        return topChecker;
+    }
+
+    public boolean compareCheckers(Checker checker1, Checker checker2) {
+        if (checker1 == null || checker2 == null) {
+            System.out.println("One or both checkers are null, cannot compare.");
+            return false;
+        }
+        // Return true if both checkers are of the same type
+        return checker1.getType() == checker2.getType();
+    }
+
+
+// can go tru all pips with this
+    public MoveType isLegal(int playerNumber, int sourcePipindex, int numberofMoves) {
+
+
+
+        //ono add error check for wrong colour checker
+        int playerDirection = playerDirection(playerNumber);
+        int destinationPipindex = sourcePipindex+ (playerDirection * numberofMoves);
+        //error check ono for ourtside of 0 and 24
+
+        if (destinationPipindex < 1|| destinationPipindex > NUMBEROFPIPS){ // ono add something for beargn off
+            return MoveType.ILLEGAL;
+        }
+
+        ArrayList<Checker> sourcePip = getPip(sourcePipindex);
+        ArrayList<Checker> destinationPip = getPip(destinationPipindex);
+
+        // ono add check foir empky
+        Checker moveChecker = getTopCheckerfromPip(sourcePipindex));
+
+        boolean rightCheckertype = isPlayerChecker(playerNumber, moveChecker);
+
+        if (moveChecker==null || !rightCheckertype ){
+            return MoveType.ILLEGAL;
+        }
+
+
+
+
+
+
+
+
+
+
+        return MoveType.ILLEGAL;
+
+
+
+        //direction of player
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
        Board board = new Board();
        board.printBoard(1);
 
-        board.printBoard(2);
+        //board.printBoard(2);
+   Checker check = board.getTopCheckerfromPip(13);
+
+
+       Checker check2 = board.getTopCheckerfromPip(18);
+
+
+        Checker check62 = board.getTopCheckerfromPip(17);
+
+//check.printChecker();
+       // check2.printChecker();
+      //  check62.printChecker();
+
+
 
     }
 

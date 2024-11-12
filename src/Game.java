@@ -23,12 +23,5 @@ public class Game {
     }
 
 
-    public void setupBoard(){
-
-    }
-
-    public void displayBoard() {
-
-    }
 
 }

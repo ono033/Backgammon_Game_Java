@@ -20,6 +20,22 @@ public class Checker {
 
     }
 
+    public void printChecker() {
+        if (type != null) {
+            System.out.println("Checker type: " + type);
+        } else {
+            System.out.println("Invalid checker, no type assigned.");
+        }
+    }
+
+
+
+
+
+
+    public CheckerProperties getType() {
+        return this.type;
+    }
 
     @Override
     public String toString() {
