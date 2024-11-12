@@ -11,11 +11,7 @@ public class GameOver {
     public boolean hasClearedAllPieces() {
         return false;
     }
-    /**
-     * Checks if the game is over based on players' scores or positions.
-     *
-     * @return true if the game is over, false otherwise
-     */
+
     public boolean checkGameOver() {
         // Example condition: game is over if one player has cleared all pieces
         if (playerA.hasClearedAllPieces()) {
@@ -29,9 +25,7 @@ public class GameOver {
         return gameOver;
     }
 
-    /**
-     * Announces the winner of the game.
-     */
+   
     private void announceWinner(Player winner) {
         System.out.println("Game Over! The winner is " + winner.getPlayerName() + "!");
     }
