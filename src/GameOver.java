@@ -25,7 +25,7 @@ public class GameOver {
         return gameOver;
     }
 
-   
+
     private void announceWinner(Player winner) {
         System.out.println("Game Over! The winner is " + winner.getPlayerName() + "!");
     }
