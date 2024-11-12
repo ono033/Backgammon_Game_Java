@@ -24,10 +24,15 @@ public class Main {
                 break;
             }
             else if(currentCommandCode==2){         // Roll command entered
+                int[] rollResult=Commands.Roll();
                     playerNumber++;
                     if (playerNumber ==3){
                         playerNumber =1;}
                     gameBoard.printBoard(playerNumber);
+
+                for (int value : rollResult) {              //Print contents of rollResult, FOR TESTING PURPOSES
+                    System.out.print(value + " ");          //TESTING PURPOSES
+                }                                           //TESTING PURPOSES
                     System.out.println("Player " + playerNumber + ", time to roll the dice!");
             }
 
