@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Commands {
 
-    public static int getCommand() {
+    public static int getCommand(Board board) {
         while(true) {
 
             Scanner scanner = new Scanner(System.in);
@@ -13,12 +13,14 @@ public class Commands {
                 System.out.println("Quitting game..");
                 return 1;
             } else if (userInput.equalsIgnoreCase("roll")) {
-
                 return 2;
             }
          else if (userInput.equalsIgnoreCase("hint")) {
             Commands.Hint();
         }
+            else if (userInput.equalsIgnoreCase("pip")) {
+                Commands.Pips(board);
+            }
             else {
                 System.out.println("Invalid input. Type 'roll' to roll the dice!");
             }
@@ -62,6 +64,29 @@ public class Commands {
             System.out.println("(Note, these are not case sensitive!)");
             System.out.println("");
 
+        }
+
+        public static void Pips(Board board) {
+        int xpips=0;
+        int opips=0;
+        int invertXpip=0;
+        for(int i=1; i<=24;i++){
+            for(int j=0;j<=4;j++){
+                Checker checker = board.getChecker(i, j);
+                if (checker == null) {
+                    continue; // Skip to the next iteration if there's no checker or type is null
+                }
+                if(checker.type==CheckerProperties.X){
+                    invertXpip=(24-i)+1;
+                    xpips=xpips+invertXpip;
+                }
+                else if(checker.type==CheckerProperties.O){
+                    opips=opips+i;
+                }
+            }
+            }
+        System.out.println("Number of pips for Player 1: "+ opips);
+        System.out.println("Number of pips for Player 2: "+ xpips);
         }
 
 
