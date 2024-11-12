@@ -37,7 +37,9 @@ public class Player {
         System.out.print("Player " + playerNumber + ", please enter your name: ");
         setPlayerName(scanner.nextLine());
     }
-
+    public boolean hasClearedAllPieces() {
+        return false;
+    }
     public void displayPlayerInfo() {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
