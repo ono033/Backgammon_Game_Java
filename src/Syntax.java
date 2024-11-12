@@ -2,12 +2,12 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Command {
+public class Syntax {
     // Set of valid commands
     private static final Set<String> VALID_COMMANDS = new HashSet<>();
 
     static {
-///
+////
         VALID_COMMANDS.add("roll");
         VALID_COMMANDS.add("quit");
         VALID_COMMANDS.add("hint");
@@ -37,7 +37,7 @@ public class Command {
 
     // Main method for testing
     public static void main(String[] args) {
-        Command command = new Command();
+        Syntax syntax = new Syntax();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter a command to test ('quit' to exit):");
@@ -50,7 +50,7 @@ public class Command {
                 break;
             }
 
-            boolean isValid = command.validateCommand(input);
+            boolean isValid = syntax.validateCommand(input);
             System.out.println("Command '" + input + "' is " + (isValid ? "valid." : "invalid."));
         }
 

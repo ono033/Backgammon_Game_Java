@@ -11,7 +11,7 @@ public class GameOver {
     public boolean hasClearedAllPieces() {
         return false;
     }
-///
+////
     public boolean checkGameOver() {
         // Example condition: game is over if one player has cleared all pieces
         if (playerA.hasClearedAllPieces()) {
