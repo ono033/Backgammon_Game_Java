@@ -22,10 +22,11 @@ public class Board {
     */
 
     private ArrayList<ArrayList<Checker>> pips;
-
+    private ArrayList<Checker> player1Bar;
+    private ArrayList<Checker> player2Bar;
 
     public enum MoveType {
-        LEGAL, ILLEGAL, KNOCKOUT
+        LEGAL, ILLEGAL, KNOCKOUT, RE_ENTRY, KNOCKOUT_RE_ENTRY
     }
 
     private CheckerProperties player1Type;
@@ -48,7 +49,70 @@ public class Board {
             ArrayList<Checker> pip = new ArrayList<>();
             pips.add(pip);
         }
+
+        player1Bar = new ArrayList<>();
+        player2Bar = new ArrayList<>();
     }
+
+    public ArrayList<Checker> getPlayerbar(int playerNumber){
+
+        if(playerNumber == 1){
+            return player1Bar;
+        }
+        else
+            return player2Bar;
+
+    }
+
+    public void printBar(){
+        System.out.println("Bar:");
+        for(Checker checker: player1Bar){
+            System.out.print(checker + ",    "  );
+        }
+
+        for(Checker checker: player2Bar){
+            System.out.print(checker + ",    "  );
+        }
+    }
+
+
+
+    public void addtoBar(Checker checker){
+        int playerNumber = checker.getPlayerNumber();
+
+            if(playerNumber == 1){
+                player1Bar.add(checker);
+            }
+            else if(playerNumber == 2){
+                player2Bar.add(checker);
+            }
+    }
+
+    public boolean isPlayerOnBar(int playerNumber){
+        ArrayList<Checker> bar = getPlayerbar(playerNumber);
+        if (bar.isEmpty()) return false;
+        Checker checker = bar.getLast();
+        if(isPlayerChecker(playerNumber, checker)) return true;
+
+        return false;
+
+    }
+
+    public Checker removefromBar(int playerNumber) {
+        // Get the bar for the specified player
+        ArrayList<Checker> bar = getPlayerbar(playerNumber);
+
+        // Check if the bar is empty
+        if (bar.isEmpty()) {
+            System.out.println("No checkers on the bar for Player " + playerNumber);
+            return null;
+        }
+
+        // Remove and return the top (last) checker
+        return bar.remove(bar.size() - 1);
+    }
+
+
 
     public ArrayList<Checker> getPip(int pipIndex) {
         if (pipIndex > 0 && pipIndex <= NUMBEROFPIPS) {
@@ -158,6 +222,7 @@ public class Board {
                     System.out.print("    ---");
                 }
 
+
                 Checker checker = getChecker(j, i);
                 if (checker != null) {
 
@@ -217,6 +282,10 @@ public class Board {
         return 0;
     }
 
+
+
+
+
     public Checker getTopCheckerfromPip(int pipIndex) {
 
         int size = getPip(pipIndex).size();
@@ -237,8 +306,52 @@ public class Board {
     }
 
 
+    public MoveType isLegalreEntry(int playerNumber, int sourceIndex, int numberofMoves){
+        int playerDirection = playerDirection(playerNumber);
+        int destinationPipindex = sourceIndex + (playerDirection * numberofMoves);
+        //System.out.println("reentry pip index! destinatioin" + destinationPipindex);
+        int destinationSize = getPip(destinationPipindex).size();
+
+        Checker moveChecker = new Checker(playerNumber);
+        Checker destinationTopChecker = getTopCheckerfromPip(destinationPipindex);
+
+        boolean sameChecker = compareCheckers(destinationTopChecker, moveChecker);
+
+        //destination empty
+        if (destinationSize == 0) {
+            return MoveType.RE_ENTRY;
+        }
+        //destination has 1 of other persons checkers
+        if (destinationSize == 1 && !sameChecker) {
+            return MoveType.KNOCKOUT_RE_ENTRY;
+        }
+
+        //if sametype of checker
+        if (destinationSize > 0 && sameChecker) {
+          //  System.out.println("reentry 2 : ");
+            return MoveType.RE_ENTRY;
+        }
+
+return MoveType.ILLEGAL;
+
+    }
+
+
+
+
+
+
+
+
     // can go tru all pips with this
     public MoveType isLegal(int playerNumber, int sourcePipindex, int numberofMoves) {
+
+        if(sourcePipindex ==0 || sourcePipindex==25){// Check if reentry is legal
+            return isLegalreEntry(playerNumber, sourcePipindex, numberofMoves);
+        }
+
+        // add if all in right quadrate  bear off possible? call function
+
 
         //ono add error check for wrong colour checker
         int playerDirection = playerDirection(playerNumber);
@@ -247,7 +360,7 @@ public class Board {
 
         //error check ono for ourtside of 0 and 24
 
-        if (destinationPipindex < 1 || destinationPipindex > NUMBEROFPIPS) { // ono add something for beargn off
+        if (destinationPipindex < 1 || destinationPipindex > NUMBEROFPIPS) { // accounts for bearing off too      ono add something for beargn off
             return MoveType.ILLEGAL;
         }
 
@@ -320,60 +433,92 @@ public class Board {
         }
         addCheckertoPip(destinationIndex, checker);
 
-
-
     }
 
     public void testlegalMoves() {
         int playerNumber = 1;
-        int[] rollResult = {4, 1, 5};
+        ArrayList<Integer> rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
+
         ArrayList legalMoves = legalMoves(playerNumber, rollResult);
 
     }
 
-    public ArrayList<ArrayList<Object>> legalMoves(int playerNumber, int[] rollResult) {
-        int count = 1;
-        // legalMoves[ index, source, destination, no of moves, movetype ]
+    public ArrayList<ArrayList<Object>> legalMoves(int playerNumber,  ArrayList<Integer>  rollResult) {
 
         ArrayList<ArrayList<Object>> legalMoves = new ArrayList<>();
+        int sourceIndex;
+        int destinationIndex;
 
-        for (int moveCount : rollResult) {
-            int sourceIndex = 1; // loop from 1 - 24 ono
-        while(sourceIndex<NUMBEROFPIPS+1) {
-            //go through checkers
 
-            // go through dice combos
-                //int moveCount = 0;
-                //moveCount = rollResult[0]; // ono remove
+        if(isPlayerOnBar(playerNumber)) {
 
+            int count = 1;
+            //if player has checker on bar
+            if(playerNumber ==1){
+                sourceIndex = 25;
+            }
+            else sourceIndex = 0;
+
+            //source = 25 for player 1, 0 for player2
+            for (int moveCount : rollResult) {
+
+                destinationIndex = sourceIndex + (moveCount * playerDirection(playerNumber));
                 MoveType moveType = isLegal(playerNumber, sourceIndex, moveCount);
-                int destinationIndex = sourceIndex + (moveCount * playerDirection(playerNumber));
-          //      System.out.println("Dice Moves:" + moveCount + "\nFrom" + sourceIndex + " to " + destinationIndex + " Is moveType:" + moveType); ono take out
 
-                if (moveType != MoveType.ILLEGAL) { //if (moveType == MoveType.LEGAL || moveType == MoveType.KNOCKOUT) {
-
-
+                if (moveType != MoveType.ILLEGAL) {
                     ArrayList<Object> moveEntry = new ArrayList<Object>(Arrays.asList(count, sourceIndex, destinationIndex, moveCount, moveType));
-
                     legalMoves.add(moveEntry);
-
-                    count++;
                 }
 
+                count++;
+            }
 
-                sourceIndex++;
+        }
+
+        else{
+
+            int count = 1;
+            // legalMoves[ index, source, destination, no of moves, movetype ]
+
+
+
+            for (int moveCount : rollResult) {
+                sourceIndex = 1; // loop from 1 - 24 ono
+                while (sourceIndex < NUMBEROFPIPS + 1) {
+                    //go through checkers
+
+                    // go through dice combos
+                    //int moveCount = 0;
+                    //moveCount = rollResult[0]; // ono remove
+
+                    MoveType moveType = isLegal(playerNumber, sourceIndex, moveCount);
+                    destinationIndex = sourceIndex + (moveCount * playerDirection(playerNumber));
+                    //      System.out.println("Dice Moves:" + moveCount + "\nFrom" + sourceIndex + " to " + destinationIndex + " Is moveType:" + moveType); ono take out
+
+                    if (moveType != MoveType.ILLEGAL) { //if (moveType == MoveType.LEGAL || moveType == MoveType.KNOCKOUT) {
+
+
+                        ArrayList<Object> moveEntry = new ArrayList<Object>(Arrays.asList(count, sourceIndex, destinationIndex, moveCount, moveType));
+
+                        legalMoves.add(moveEntry);
+
+                        count++;
+                    }
+
+
+                    sourceIndex++;
+                }
             }
         }
 
-
-
         return legalMoves;
-
 
     }
 
+
+
 public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
-       System.out.println("\nLegal Moves:");
+       System.out.println("Legal Moves:");
         for (ArrayList<Object> move : legalMoves) {
           //  System.out.println("Move " + move.get(0) + ": From Pip " + move.get(1) + " to Pip " + move.get(2) + ", Dice Value: " + move.get(3) + ", Move Type: " + move.get(4));
          //   System.out.println(move);
@@ -381,16 +526,18 @@ public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
                     ": From Pip " + move.get(SOURCE_PIP) +
                     " to Pip " + move.get(DESTINATION_PIP) +
                     "         Dice Value: " + move.get(DICE_VALUE) +
-                    ", Move Type: " + move.get(MOVE_TYPE));
+                    ", Move Type: " + move.get(MOVE_TYPE)+
+            "Move count (which dice used)" );
+
 
         }
 }
 
-public void makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
+public boolean makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
 
         if(moveNumber<1 || moveNumber>legalMoves.size()) {      //ono check if this line is right
             System.out.println("Illegal Move");
-            return;
+            return false;
         }
 
         ArrayList<Object> move = legalMoves.get(moveNumber-1);
@@ -399,8 +546,24 @@ public void makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
         int destinationIndex = (int) move.get(DESTINATION_PIP);
         if(moveType ==MoveType.ILLEGAL){ // Return if move is illegal
             System.out.println("Illegal Move");
-            return;
+            return false;
         }
+
+
+    if(moveType ==MoveType.RE_ENTRY){
+        moveBartoPip(sourceIndex, destinationIndex);            //also removes from bar
+        System.out.println("Re-Entry Move... Successfull");
+
+    }
+
+    if(moveType ==MoveType.KNOCKOUT_RE_ENTRY){
+        Checker hitChecker = removeCheckerfromPip(destinationIndex); // removes opposite
+        addtoBar(hitChecker);
+
+        moveBartoPip(sourceIndex, destinationIndex);            //also removes from bar
+        System.out.println("Re-Entry Move... Successfull");
+
+    }
 
         if(moveType ==MoveType.LEGAL){
             movePiptoPip(sourceIndex, destinationIndex);
@@ -411,17 +574,38 @@ public void makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
         if(moveType ==MoveType.KNOCKOUT){
             Checker hitChecker = removeCheckerfromPip(destinationIndex); // removes opposite
             // ono add to bar
-
+            addtoBar(hitChecker);
             movePiptoPip(sourceIndex, destinationIndex);
             System.out.println("Knockout Move... Successfull");
 
 
         }
 
-
+return true;
 }
 
-    public void diceRoll() {
+    public void moveBartoPip(int sourceIndex, int destinationIndex){
+        int playerNumber;
+
+        if(sourceIndex ==25) {
+            playerNumber =  1;
+        }
+        else if (sourceIndex ==0) {
+            playerNumber =  2; //
+        }
+
+        else return;
+
+        Checker checker = removefromBar(playerNumber);
+
+        //Checker checker = removeCheckerfromPip(sourceIndex);
+        if (checker == null) {
+            System.out.println("No checker to move");
+        }
+        addCheckertoPip(destinationIndex, checker);
+    }
+
+   /* public void diceRoll() {
 
         Random random = new Random();
         // Roll two dice
@@ -442,35 +626,61 @@ public void makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
             System.out.println("Die 2: " + die2);
         }}
 
-public void takeTurn(int playerNumber, int[] diceRoll){//ono what do I add?
+    */
 
+public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what do I add?
+//
     ArrayList<ArrayList<Object>> legalMoves = legalMoves(playerNumber, diceRoll);
-    System.out.println("\n Select Move: " );
+    System.out.println("Select Move: " );
     printLegalMoves(legalMoves);
+
+    if (legalMoves.isEmpty()) {
+        System.out.println("No legal moves available for Player " + playerNumber + ". Skipping turn.");
+        diceRoll.clear();
+        return; // Exit this turn
+    }
 
     Scanner scanner = new Scanner(System.in);
     int moveNumber = scanner.nextInt();
+//if no more legal moves
 
-    makeMove(legalMoves, moveNumber);
-
-
-
+    boolean moveSuccess = makeMove(legalMoves, moveNumber);
+// remove dice
+    if(moveSuccess) {
+        int diceValue = (int) legalMoves.get(moveNumber - 1).get(DICE_VALUE);
+        diceRoll.remove(Integer.valueOf(diceValue));
+    }
+    else System.out.println("Move Failed");
 }
+
 
 public static void main(String[] args) {
 
     Board board = new Board();
-//    Checker checker = new Checker("X");
-  // board.addCheckertoPip(5,checker);
-    int[] rollresult = new int[3];
-    rollresult[0] = 1;
-    rollresult[1] = 2;
-    rollresult[2] = 6;
+    Checker checker = new Checker("X");
+  board.addCheckertoPip(5,checker);
+
 
     int playerNumber = 1;
 while(true) {
-    board.printBoard(playerNumber);
+
+    ArrayList<Integer> rollresult = new ArrayList<>(Arrays.asList(1, 2, 6));
+
+while(true) {
+    board.printBoard(1); //ono change back !!
+    board.printBar();
+    System.out.println("Player turn:" + playerNumber);
+    System.out.println("Remaining dice: " + rollresult);
     board.takeTurn(playerNumber, rollresult);
+    if(rollresult.isEmpty()) break;
+
+
+
+}
+    if (playerNumber == 1) playerNumber++;
+
+
+    else playerNumber =1;
 
 }
 
