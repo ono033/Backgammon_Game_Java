@@ -199,7 +199,8 @@ public class Board {
 
 
     public void printBoard(int playerNumber) {
-
+    // between 18 and 19 print current players bar
+        //
         System.out.println("Player" + playerNumber + "'s Board");
         System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24  OFF");
 
