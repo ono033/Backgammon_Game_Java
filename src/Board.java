@@ -429,7 +429,7 @@ return MoveType.ILLEGAL;
     public void movePiptoPip(int sourceIndex, int destinationIndex){
 
         Checker checker = removeCheckerfromPip(sourceIndex);
-        if (checker != null) {
+        if (checker == null) {
             System.out.println("No checker to move");
         }
         addCheckertoPip(destinationIndex, checker);
