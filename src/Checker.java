@@ -41,7 +41,6 @@ public class Checker {
     }
 
 
-
     public int getPlayerNumber(){
 
         if(type == CheckerProperties.O){

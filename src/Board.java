@@ -304,6 +304,9 @@ public class Board {
         }
         System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
 
+        System.out.println("Can bear off: " + canBearoff(playerNumber));
+
+
     }
 
     public int playerDirection(int playerNumber) {
@@ -541,13 +544,62 @@ return MoveType.ILLEGAL;
 
     }
 
+    public boolean canBearoff(int playerNumber){
+        //Checks if all of player's checkers are on home board
+        // - Validates that no checkers are on bar and no checkers are outside of home board
+
+        if (isPlayerOnBar(playerNumber)) {  //player cannot bear off if they are on Bar
+            return false;
+        }
 
 
-public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
+        int direction = playerDirection(playerNumber);
+
+        int startInvalidRange = (playerNumber == 1) ? 24 : 1;   // Player 1 starts at pip 7
+        int pipIndex = startInvalidRange;
+        //int endInvalidRange = (playerNumber == 1) ? 24 : 18;   // Player 1 ends at pip 24
+        ArrayList<Checker> pip;
+
+       // for(int i = startInvalidRange; i <= endInvalidRange; i++) {}
+
+        for (int i = 1; i <= 18; i++) {
+            //checks players non home board pips
+
+            pip = getPip(pipIndex);
+
+            if (!pip.isEmpty()){
+                Checker checker =pip.getLast();
+
+                if(isPlayerChecker(playerNumber, checker)){
+                    return false;
+                }
+            }
+
+            pipIndex += direction;
+
+        }
+        return true;
+
+    }
+
+
+    public MoveType isLegalBearOff(int playerNumber){
+        return MoveType.ILLEGAL;
+    }
+
+
+
+
+
+
+    public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
       // System.out.println("Legal Moves:");
         for (ArrayList<Object> move : legalMoves) {
           //  System.out.println("Move " + move.get(0) + ": From Pip " + move.get(1) + " to Pip " + move.get(2) + ", Dice Value: " + move.get(3) + ", Move Type: " + move.get(4));
          //   System.out.println(move);
+           // if(canBearoff(playerDirection()))
+
+
             System.out.println("Move " + move.get(MOVE_INDEX) +
                     ": From Pip " + move.get(SOURCE_PIP) +
                     " to Pip " + move.get(DESTINATION_PIP) +
@@ -673,7 +725,8 @@ while(true) {
     ArrayList<Integer> rollresult = new ArrayList<>(Arrays.asList(1, 2, 6));
 
 while(true) {
-    board.printBoard(1); //ono change back !!
+   // board.printBoard(1); //ono change back !!
+    board.printBoard(playerNumber);
     board.printBar();
    // System.out.println("Player turn:" + playerNumber);
     System.out.print("\nPlayer " + playerNumber + " Remaining dice: " + rollresult);
