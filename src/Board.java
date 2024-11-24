@@ -1,25 +1,17 @@
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Board {
     public static final int NUMBEROFPIPS = 24;
 
-    // Constants for accessing move details in ArrayList
+    // Constants for accessing move details in ArrayList moveEntry
     private static final int MOVE_INDEX = 0;
     private static final int SOURCE_PIP = 1;
     private static final int DESTINATION_PIP = 2;
     private static final int DICE_VALUE = 3;
     private static final int MOVE_TYPE = 4;
 
-
-   /* private .. pips
-   private pip?
-   private middle
-   private off/on
-   top pips/ bottom pips, left and right?
-    */
 
     private ArrayList<ArrayList<Checker>> pips;
     private ArrayList<Checker> player1Bar;
@@ -201,6 +193,12 @@ public class Board {
     public void printBoard(int playerNumber) {
     // between 18 and 19 print current players bar
         //
+        int opponentPlayerNumber = (playerNumber == 1) ? 2 : 1;
+
+        ArrayList<Checker> activePlayerBar = getPlayerbar(playerNumber);
+        ArrayList<Checker> opponentPlayerBar = getPlayerbar(opponentPlayerNumber);
+
+
         System.out.println("Player" + playerNumber + "'s Board");
         System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24  OFF");
 
@@ -220,7 +218,22 @@ public class Board {
             for (int j = start; (playerNumber == 2) ? j >= end : j <= end; j += increment) { // Print pips 13-24
 
                 if (j == 19 || j == 6) {  // space for bar
-                    System.out.print("    ---");
+
+                    if (!activePlayerBar.isEmpty() && i >= 0 && i < activePlayerBar.size() && activePlayerBar.get(i) != null) {
+                        // Safe to access activePlayerBar.get(i)
+                       // System.out.println("Index i(shoukd be 0)" + i);
+                        Checker checker = activePlayerBar.get(i);
+
+                        System.out.print("  ");
+                        System.out.print(checker.toString());
+                        System.out.print(" ---");
+                    }
+
+
+                    else {
+
+                        System.out.print("    ---");
+                    }
                 }
 
 
@@ -255,9 +268,28 @@ public class Board {
 
             for (int j = start; (playerNumber == 2) ? j <= end : j >= end; j += increment) { // Print pips 13-24
 
-                if (j == 6 || j == 19) {
-                    System.out.print("    ---");
+                if (j == 6 || j == 19) {        // Space for bar
+
+
+                    if (!opponentPlayerBar.isEmpty() && i >= 0 && i < opponentPlayerBar.size() && opponentPlayerBar.get(i) != null) {
+                        // Safe to access activePlayerBar.get(i)
+                        // System.out.println("Index i(shoukd be 0)" + i);
+                        Checker checker = opponentPlayerBar.get(i);
+
+                        System.out.print("  ");
+                        System.out.print(checker.toString());
+                        System.out.print(" ---");
+                    }
+
+
+                    else {
+
+                        System.out.print("    ---");
+                    }
+
+
                 }
+
                 Checker checker = getChecker(j, i);
                 if (checker != null) {
                     System.out.print(checker.toString());
@@ -423,7 +455,6 @@ return MoveType.ILLEGAL;
 
         return MoveType.ILLEGAL;
 
-        //direction of player
     }
 
     public void movePiptoPip(int sourceIndex, int destinationIndex){
@@ -436,13 +467,7 @@ return MoveType.ILLEGAL;
 
     }
 
-    public void testlegalMoves() {
-        int playerNumber = 1;
-        ArrayList<Integer> rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
 
-        ArrayList legalMoves = legalMoves(playerNumber, rollResult);
-
-    }
 
     public ArrayList<ArrayList<Object>> legalMoves(int playerNumber,  ArrayList<Integer>  rollResult) {
 
@@ -450,10 +475,10 @@ return MoveType.ILLEGAL;
         int sourceIndex;
         int destinationIndex;
 
-
+        int count = 1;
         if(isPlayerOnBar(playerNumber)) {
 
-            int count = 1;
+
             //if player has checker on bar
             if(playerNumber ==1){
                 sourceIndex = 25;
@@ -478,7 +503,7 @@ return MoveType.ILLEGAL;
 
         else{
 
-            int count = 1;
+            //int count = 1;
             // legalMoves[ index, source, destination, no of moves, movetype ]
 
 
@@ -605,28 +630,6 @@ return true;
         addCheckertoPip(destinationIndex, checker);
     }
 
-   /* public void diceRoll() {
-
-        Random random = new Random();
-        // Roll two dice
-        int die1 = random.nextInt(6) + 1;
-        int die2 = random.nextInt(6) + 1;
-
-        // Display the result of each dice
-        if (die1==die2){
-            System.out.println("You rolled:");
-            System.out.println("Die 1: " + die1);
-            System.out.println("Die 2: " + die2);
-            System.out.println("You rolled a double!");
-            System.out.println("You can roll " + die1 +"-"+ die1 +"-"+ die1 +"-"+ die1);
-        }
-        else{
-            System.out.println("You rolled:");
-            System.out.println("Die 1: " + die1);
-            System.out.println("Die 2: " + die2);
-        }}
-
-    */
 
 public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what do I add?
 //
@@ -687,16 +690,7 @@ while(true) {
 
 }
 
-        /*
-Board board = new Board();
-board.setUpBoard();
-int[] rollresult = new int[3];
-rollresult[0] = 1;
-        rollresult[1] = 2;
-        rollresult[2] = 6;
-      //  board.legalMoves(2, rollresult );
-        board.legalMoves(2, rollresult);
-*/
+
     }
 }
 
