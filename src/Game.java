@@ -6,8 +6,72 @@ public class Game {
 
     public Game() {
 
-        Player player1 = new Player();
-        Player player2 = new Player();
+        int playerNumber = 1;
+        Player playerOne = new Player();
+        playerOne.displayPlayerInfo();
+
+        Player playerTwo = new Player();
+        playerTwo.displayPlayerInfo();
+
+        int currentCommandCode = 0;
+
+        System.out.println("Game Starting...");
+        Board gameBoard = new Board();
+        gameBoard.printBoard(playerNumber);
+        System.out.println("Player " + playerNumber + ", time to roll the dice!");
+
+        while (true) {
+
+            currentCommandCode = Commands.getCommand(gameBoard);
+            if (currentCommandCode == 1) {             // Quit command entered
+                break;
+            } else if (currentCommandCode == 2) {         // Roll command entered
+
+
+                ///// ono added taking turn (regular)
+
+                    gameBoard.printBoard(playerNumber);
+                    ArrayList<Integer> rollResult = Commands.Roll();
+                    //rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
+
+                    while (true) {
+
+                        gameBoard.printBoard(playerNumber); //ono change back !!
+                        gameBoard.printBar();
+                        System.out.print("\n\nPlayer " + playerNumber + " Remaining dice: " + rollResult);
+                        gameBoard.takeTurn(playerNumber, rollResult);
+                        if (rollResult.isEmpty()) break;         //once all dice used up
+
+
+                    }
+                    //////
+
+
+                    playerNumber++;
+                    if (playerNumber == 3) {
+                        playerNumber = 1;
+                    }
+                    //gameBoard.printBoard(playerNumber);
+
+                    for (int value : rollResult) {              //Print contents of rollResult, FOR TESTING PURPOSES
+                        System.out.print(value + " ");          //TESTING PURPOSES
+                    }                                           //TESTING PURPOSES
+                    System.out.println("Player " + playerNumber + ", time to roll the dice!");
+
+
+            }
+
+            //Game game = new Game();
+        }
+
+
+
+
+
+
+
+       /* Player player1 = new Player();
+        Player player2 = nw Player();
         Board board = new Board();
 
 
@@ -17,11 +81,11 @@ public class Game {
         board.setUpBoard();
         board.printBoard(1);
         board.printBoard(2);
-
+*/
 
 
     }
 
 
-
 }
+

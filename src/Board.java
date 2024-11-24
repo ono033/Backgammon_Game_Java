@@ -65,7 +65,7 @@ public class Board {
     }
 
     public void printBar(){
-        System.out.println("Bar:");
+        System.out.print("Bar:");
         for(Checker checker: player1Bar){
             System.out.print(checker + ",    "  );
         }
@@ -519,7 +519,7 @@ return MoveType.ILLEGAL;
 
 
 public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
-       System.out.println("Legal Moves:");
+      // System.out.println("Legal Moves:");
         for (ArrayList<Object> move : legalMoves) {
           //  System.out.println("Move " + move.get(0) + ": From Pip " + move.get(1) + " to Pip " + move.get(2) + ", Dice Value: " + move.get(3) + ", Move Type: " + move.get(4));
          //   System.out.println(move);
@@ -527,8 +527,7 @@ public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves) {
                     ": From Pip " + move.get(SOURCE_PIP) +
                     " to Pip " + move.get(DESTINATION_PIP) +
                     "         Dice Value: " + move.get(DICE_VALUE) +
-                    ", Move Type: " + move.get(MOVE_TYPE)+
-            "Move count (which dice used)" );
+                    ", Move Type: " + move.get(MOVE_TYPE) );
 
 
         }
@@ -632,7 +631,7 @@ return true;
 public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what do I add?
 //
     ArrayList<ArrayList<Object>> legalMoves = legalMoves(playerNumber, diceRoll);
-    System.out.println("Select Move: " );
+    System.out.println("\nSelect Move: " );
     printLegalMoves(legalMoves);
 
     if (legalMoves.isEmpty()) {
@@ -642,7 +641,12 @@ public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what
     }
 
     Scanner scanner = new Scanner(System.in);
+    if (!scanner.hasNextInt()) {
+        System.out.println("Invalid input. Please enter a valid number.");
+        return;
+    }
     int moveNumber = scanner.nextInt();
+
 //if no more legal moves
 
     boolean moveSuccess = makeMove(legalMoves, moveNumber);
@@ -658,8 +662,6 @@ public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what
 public static void main(String[] args) {
 
     Board board = new Board();
-    Checker checker = new Checker("X");
-  board.addCheckertoPip(5,checker);
 
 
     int playerNumber = 1;
@@ -670,8 +672,8 @@ while(true) {
 while(true) {
     board.printBoard(1); //ono change back !!
     board.printBar();
-    System.out.println("Player turn:" + playerNumber);
-    System.out.println("Remaining dice: " + rollresult);
+   // System.out.println("Player turn:" + playerNumber);
+    System.out.print("\nPlayer " + playerNumber + " Remaining dice: " + rollresult);
     board.takeTurn(playerNumber, rollresult);
     if(rollresult.isEmpty()) break;
 

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -26,13 +28,13 @@ public class Commands {
             }
         }
     }
-    public static int[] Roll() {
+    public static ArrayList<Integer> Roll() {
 
         Random random = new Random();
         // Roll two dice
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
-        int[] result;
+        ArrayList<Integer> result;
 
         // Display the result of each dice
         if (die1==die2){
@@ -41,13 +43,15 @@ public class Commands {
             System.out.println("Die 2: " + die2);
             System.out.println("You rolled a double!");
             System.out.println("You can roll " + die1 +"-"+ die1 +"-"+ die1 +"-"+ die1);
-            result = new int[] {die1, 2 * die1, 3 * die1, 4 * die1};
+            result = new ArrayList<>(Arrays.asList(die1, die1, die1, die1));
+            //result = new int[] {die1, 2 * die1, 3 * die1, 4 * die1};
         }
         else{
             System.out.println("You rolled:");
             System.out.println("Die 1: " + die1);
             System.out.println("Die 2: " + die2);
-            result = new int[] {die1, die2, die1 + die2};
+            result = new ArrayList<>(Arrays.asList(die1, die2));
+            //result = new int[] {die1, die2, die1 + die2};
         }
     return result;
     }
