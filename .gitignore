@@ -6,7 +6,7 @@
 *.war
 *.ear
 
-# IntelliJ IDEA files
+# IntelliJ IDEA files.
 .idea/
 *.iml
 *.iws

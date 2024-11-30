@@ -12,3 +12,8 @@ change this line   for(int i= 0;i<6;i++) { in board to work for a lot of stacked
 Print board: print checkers check  + add lower half of board
 
 make setup board
+
+
+// 24/11
+
+if doubles rolled right now 4x legal commands print...
