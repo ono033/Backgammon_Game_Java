@@ -33,7 +33,7 @@ public class Board {
         this.player1Type = CheckerProperties.O;  // Example: Player 1 uses 'X'
         this.player2Type = CheckerProperties.X;  // Example: Player 2 uses 'O'
         initialiseVariables();
-       // setUpBoard();
+        setUpBoard();
 
     }
 
