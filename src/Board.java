@@ -32,7 +32,7 @@ public class Board {
 // initialise
 
         initialiseVariables();
-        // setUpBoard();
+         setUpBoard();
 
     }
 
@@ -947,6 +947,7 @@ while(true) {
    // ArrayList<Integer> rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
     ArrayList<Integer> rollresult = Commands.Roll();
 while(true) {
+
    // board.printBoard(1); //ono change back !!
     board.printBoard(playerNumber);
     board.printBar();
