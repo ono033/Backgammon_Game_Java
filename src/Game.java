@@ -13,22 +13,35 @@ public class Game {
         Player playerTwo = new Player();
         playerTwo.displayPlayerInfo();
 
-        int currentCommandCode = 0;
-
+        ArrayList<Integer> commandCode = new ArrayList<>();
         System.out.println("Game Starting...");
         Board gameBoard = new Board();
         gameBoard.printBoard(playerNumber);
         System.out.println("Player " + playerNumber + ", time to roll the dice!");
 
+
+        boolean gameTerminated = false;
         while (true) {
+        if (gameTerminated) {
+            break;
+        }
+        else {
+            commandCode = Commands.getCommand(gameBoard);
+            for (Integer currentCommandCode : commandCode) {
+                if (currentCommandCode == 1) {             // Quit command entered
+                    gameTerminated = true;
+                    break;
+                }
+                else if(currentCommandCode == 2) {
+                    Commands.Hint();
+                }
+                else if(currentCommandCode == 3) {
+                    Commands.Pips(gameBoard);
+                }
+                else if (currentCommandCode == 4) {         // Roll command entered
 
-            currentCommandCode = Commands.getCommand(gameBoard);
-            if (currentCommandCode == 1) {             // Quit command entered
-                break;
-            } else if (currentCommandCode == 2) {         // Roll command entered
 
-
-                ///// ono added taking turn (regular)
+                    ///// ono added taking turn (regular)
 
                     gameBoard.printBoard(playerNumber);
                     ArrayList<Integer> rollResult = Commands.Roll();
@@ -59,9 +72,10 @@ public class Game {
                     System.out.println("Player " + playerNumber + ", time to roll the dice!");
 
 
+                }
             }
-
             //Game game = new Game();
+        }
         }
 
 
@@ -88,4 +102,3 @@ public class Game {
 
 
 }
-

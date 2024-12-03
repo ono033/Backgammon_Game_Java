@@ -655,6 +655,7 @@ return MoveType.ILLEGAL;
         return true;
 
     }
+    
 
 
     public MoveType isLegalBearOff(int playerNumber, int sourceIndex, int moveCount){   //for direct bear off (if pip number = dice number)
