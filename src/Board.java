@@ -30,10 +30,9 @@ public class Board {
 
     public Board() {
 // initialise
-        this.player1Type = CheckerProperties.O;  // Example: Player 1 uses 'X'
-        this.player2Type = CheckerProperties.X;  // Example: Player 2 uses 'O'
+
         initialiseVariables();
-        setUpBoard();
+        // setUpBoard();
 
     }
 
@@ -51,6 +50,9 @@ public class Board {
 
         player1Off =0;
         player2Off=0;
+
+        this.player1Type = CheckerProperties.O;
+        this.player2Type = CheckerProperties.X;
     }
 
     public ArrayList<Checker> getPlayerbar(int playerNumber){
@@ -515,8 +517,11 @@ return MoveType.ILLEGAL;
 
             //int count = 1;
             // legalMoves[ index, source, destination, no of moves, movetype ]
+                boolean doubles = false;
 
-
+            if (rollResult.size()>2 && rollResult.get(0).equals(rollResult.get(1))){
+                   doubles = true;
+            }
 
             for (int moveCount : rollResult) {
                 sourceIndex = 1; // loop from 1 - 24 ono
@@ -544,6 +549,7 @@ return MoveType.ILLEGAL;
 
                     sourceIndex++;
                 }
+                if(doubles) return legalMoves; // dont got through dice again since its all the same
             }
 
             // Player can only Bear - off if no more legal moves allowed and all checkers are in homeboard
@@ -572,6 +578,8 @@ return MoveType.ILLEGAL;
                     }
 
                     // ono check the playernumber and movecount
+                    if(doubles) return legalMoves; // dont got through dice again since its all the same
+
                 }
 
 
@@ -923,14 +931,14 @@ public static void main(String[] args) {
     Board board = new Board();
 
     board.addCheckerstoPip("O", 1, 1); // Player 1: Checker on pip 1
-    board.addCheckerstoPip("O", 3, 1); // Player 1: Checker on pip 3
-    board.addCheckerstoPip("O", 5, 1); // Player 1: Checker on pip 5 (highest for Player 1)
+    board.addCheckerstoPip("O", 3, 4); // Player 1: Checker on pip 3
+    board.addCheckerstoPip("O", 5, 5); // Player 1: Checker on pip 5 (highest for Player 1)
     board.addCheckerstoPip("O", 6, 1);
 
 
     board.addCheckerstoPip("X", 24, 1); // Player 2: Checker on pip 24
-    board.addCheckerstoPip("X", 22, 1); // Player 2: Checker on pip 22
-    board.addCheckerstoPip("X", 20, 1); // Player 2: Checker on pip 20 (highest for Player 2)
+    board.addCheckerstoPip("X", 22, 4); // Player 2: Checker on pip 22
+    board.addCheckerstoPip("X", 20, 4); // Player 2: Checker on pip 20 (highest for Player 2)
 
 
     int playerNumber = 1;
