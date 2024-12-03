@@ -655,26 +655,7 @@ return MoveType.ILLEGAL;
         return true;
 
     }
-        public void diceRoll() {
-
-        Random random = new Random();
-                // Roll two dice
-                int die1 = random.nextInt(6) + 1;
-                int die2 = random.nextInt(6) + 1;
-
-                // Display the result of each dice
-                if (die1==die2){
-                System.out.println("You rolled:");
-                System.out.println("Die 1: " + die1);
-                System.out.println("Die 2: " + die2);
-                System.out.println("You rolled a double!");
-                System.out.println("You can roll " + die1 +"-"+ die1 +"-"+ die1 +"-"+ die1);
-        }
-    else{
-                    System.out.println("You rolled:");
-                    System.out.println("Die 1: " + die1);
-                    System.out.println("Die 2: " + die2);
-                }}
+    
 
 
     public MoveType isLegalBearOff(int playerNumber, int sourceIndex, int moveCount){   //for direct bear off (if pip number = dice number)
