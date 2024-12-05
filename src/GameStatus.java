@@ -23,7 +23,7 @@ public class GameStatus {
             }
         }
 
-        // Check if Player 2 has removed all their checker
+        // Check if Player 2 has removed all their checkers
         if (player2win == 12) {
             if (player1win == 0 && !board.getPlayerbar(1).isEmpty()) {
                 // Backgammon: Player 1 has no checkers removed and has checkers on the bar
