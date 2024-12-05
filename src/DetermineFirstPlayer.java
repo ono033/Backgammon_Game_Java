@@ -1,5 +1,5 @@
 import java.util.Random;
-
+//
 public class DetermineFirstPlayer {
 
     public static void determineFirstPlayer(Player player1, Player player2) {
@@ -31,4 +31,5 @@ public class DetermineFirstPlayer {
         // Determine which player goes first
         determineFirstPlayer(player1, player2);
     }
+
 }
