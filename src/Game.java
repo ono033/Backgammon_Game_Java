@@ -4,13 +4,13 @@ import java.util.*;
 public class Game {
 //
 
-    public Game() {
+    public Game(Player playerOne, Player playerTwo) {
 
         int playerNumber = 1;
-        Player playerOne = new Player();
-        playerOne.displayPlayerInfo();
+       // Player playerOne = new Player(); initialised in match instead
+       playerOne.displayPlayerInfo();
 
-        Player playerTwo = new Player();
+       // Player playerTwo = new Player();
         playerTwo.displayPlayerInfo();
 
         ArrayList<Integer> commandCode = new ArrayList<>();
