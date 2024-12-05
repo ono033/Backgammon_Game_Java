@@ -8,6 +8,8 @@ public class Player {
     private String playerName;
     private int score;
     private int playerNumber;
+    private int playerMatchscore =0;
+
 
     public Player() {
         playerCount++;
@@ -41,6 +43,24 @@ public class Player {
     public void displayPlayerInfo() {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
+
+    public int getPlayerMatchscore(){
+        return playerMatchscore;
+    }
+
+    public void setPlayerMatchscore(int playerMatchscore){
+        this.playerMatchscore = playerMatchscore;
+    }
+
+    public void addToPlayerMatchscore(int add){
+
+        this.playerMatchscore+= add;
+
+    }
+
+
+
+
 
     /*
     public static void main(String[] args) {
