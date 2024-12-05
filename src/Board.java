@@ -71,13 +71,7 @@ public class Board {
         return bar.isEmpty();
     }
 
-    public void printBar() {
-        System.out.print("BAR: ");
-        for (Checker checker : bar) {
-            System.out.print(checker.toString() + " ");
-        }
-        System.out.println();
-    }
+
 
     public void setUpBoard() {
         addCheckerstoPip("X", 1, 2);
@@ -128,7 +122,7 @@ public class Board {
             System.out.println();
         }
         System.out.println("12--+---+---+---+---07   BAR   06--+---+---+---+---01  OFF");
-        printBar();
+
     }
 
     public static void main(String[] args) {
