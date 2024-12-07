@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-
+//Code to check Gamestatus
 public class GameStatus {
 
     private String status; // Holds the current game status (e.g., "Backgammon", "Gammon", etc.)
