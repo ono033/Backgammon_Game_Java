@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Game {
 //
-
+   // GameStatus gameStatus;
     public Game(Player playerOne, Player playerTwo) {
 
         int playerNumber = 1;
@@ -67,6 +67,23 @@ public class Game {
 
                     }
 
+                    //////
+                    //Seun Attempt at Integration
+                    // Check game status after a turn
+                   // boolean gameEnded = GameStatus.checkGameEnd(gameBoard, playerOne, playerTwo);
+                    if (GameStatus.checkGameEnd(gameBoard, playerOne, playerTwo)) {
+                        System.out.println("Game Over:");
+                        System.out.println("Winner: " + GameStatus.getWinner().getPlayerName());
+                        System.out.println("Winning Status: " + GameStatus.getStatus());
+                        System.out.println("Points Awarded: " + GameStatus.getPointsAwarded());
+
+                        //Terminate current game and sets up new board
+                        gameBoard.initialiseVariables(); // Reset the board
+                        gameBoard.setUpBoard();          // Set up for a new game
+                        gameTerminated = true;           // End the game loop
+/// end of seun stuff
+
+                    }
 
                     playerNumber++;
                     if (playerNumber == 3) {

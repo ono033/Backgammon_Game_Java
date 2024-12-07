@@ -1007,7 +1007,24 @@ while(true) {
 
     }
 
+//TEST FOR MY GAMESTATUS SEUN
+public void setUpBackgammonTest() {
+    initialiseVariables(); // Reset board
+
+    // Player 1 has borne off all checkers
+    player1Off = 12;
+
+    // Player 2 has no checkers borne off but has checkers in Player 1's home quadrant and on the bar
+    addCheckerstoPip("X", 19, 2); // Checkers in Player 1's home quadrant
+    addCheckerstoPip("X", 20, 1); // Another checker in Player 1's home quadrant
+    getPlayerbar(2).add(new Checker("X")); // Checker on Player 2's bar
+}
+
+
+
+
 
 
 }
+
 
