@@ -8,48 +8,49 @@ public class Match{
 
     private Player[] players; // Array to hold players
 
-
     private int matchLength = 0;
-
-   // Player playerOne = new Player();
-      //  playerOne.displayPlayerInfo();
-
-   // Player playerTwo = new Player();
-     //   playerTwo.displayPlayerInfo();
-
 
 
     public Match(){
 
+        Player.resetPlayercount();
         players = new Player[2];
+
         players[0] = new Player(); // Player One
         players[1] = new Player();   // Player Two
 
         setMatchLength();
 
 
+        while(!matchOver){
 
 
-        while(true){
+            printMatchScore();
 
+             //while(true) { //- if the game doesn't end inside game or game status?
             Game game = new Game(players[0], players[1]);
-// if game over then update match score depending on type of win
+            System.out.println("Game over .. "); // remove ono is already printed by someone else
+
+
+            //  if(!game.isgameOver){ // need to make this function or similar
+
+                //update match score ? (only if its not done in somewhere else)
+              //  System.out.println("Game over .. "); // remove ono is already printed by someone else
+              //  break;
+
+          //  }
+            updateMatchOver(); // updates matchover
+        }
+
 
         }
 
 
 
-    }
 
-/*
-public void setMatchLength(){
-        System.out.println("Enter Match Length: ");
-    Scanner scanner = new Scanner(System.in);
-    String matchLength = scanner.nextInt();
-}
-*/
 
-public void announceMatchwinner(Player winningPlayer){
+
+    public void announceMatchwinner(Player winningPlayer){
 
     System.out.println("Congratulations, the winner is ......" + winningPlayer.getPlayerName() + "\n with a score of " + winningPlayer.getPlayerMatchscore()  );
 
@@ -67,7 +68,7 @@ public void announceMatchwinner(Player winningPlayer){
                 if (matchLength > 0) {
                     break; // Exit loop if valid input
                 } else {
-                    System.out.println("Match length must be a positive integer. Try again.");
+                    System.out.println("Match length must be over 0. Try again.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a positive integer.");
@@ -81,13 +82,6 @@ public void announceMatchwinner(Player winningPlayer){
 
 
 
-// for testing purposes of match
-public void addPoint(Player player){
-//ono
-  //  player.addToPlayerMatchscore();
-
-}
-
     public void printMatchScore() {
         System.out.println("\n--- Current Match Scores ---");
         for (Player player : players) {
@@ -96,7 +90,7 @@ public void addPoint(Player player){
         System.out.println("-----------------------------");
     }
 
-    public void isMatchOver() {
+    public void updateMatchOver() {
         
     for(Player player:players){
             if (player.getPlayerMatchscore() >=matchLength){
@@ -108,6 +102,10 @@ public void addPoint(Player player){
         }
     }
 
+    public boolean isMatchOver(){
+    return matchOver;
+    }
+
     public static void main(String[] args) {        //testing
     Match match = new Match();
     //printMatchScore();  ono
@@ -116,4 +114,52 @@ public void addPoint(Player player){
 
 
 }
+
+
+/* This is for testing the Match constructor without actually playing the game
+// to use replace constructor with this
+ //lets you add match points to players to test match class
+
+    public Match(){
+
+        Player.resetPlayercount();
+        players = new Player[2];
+
+        players[0] = new Player(); // Player One
+        players[1] = new Player();   // Player Two
+
+        setMatchLength();
+
+
+        while(!matchOver){
+
+
+            printMatchScore();
+
+            for(Player player: players) {
+                System.out.println("add points to player: " + player.getPlayerNumber());
+
+                Scanner scanner = new Scanner(System.in);
+
+                int n = scanner.nextInt();
+
+                player.addPointsToPlayerMatchscore(n);
+
+
+            }
+            // ono add back in after match test Game game = new Game(players[0], players[1]);
+            // if game over then update match score depending on type of win
+
+// make sure that when game is over it gets to this point , if not added by seun or sahar add check for gameover
+            updateMatchOver(); // updates matchover
+        }
+
+        // when match over - start again?
+
+
+
+
+    }
+
+*/
 

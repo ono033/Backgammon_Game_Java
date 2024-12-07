@@ -38,10 +38,20 @@ public class Game {
                 else if(currentCommandCode == 3) {
                     Commands.Pips(gameBoard);
                 }
-                else if (currentCommandCode == 4) {         // Roll command entered
+                else if (currentCommandCode == 4) {         // Roll command entered or dice command entered
 
+
+                    /*
+                    // if Dice command entered
+                    if(currentCommandCode ==5){
+
+                        rollResult = Commands.getcustomDice();
+                        put else for other rollresult
+                    }
+                    */
 
                     ///// ono added taking turn (regular)
+
 
                     gameBoard.printBoard(playerNumber);
                     ArrayList<Integer> rollResult = Commands.Roll();

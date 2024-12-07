@@ -18,6 +18,10 @@ public class Player {
         enterPlayerName();
     }
 
+    public static void resetPlayercount(){
+        playerCount=0;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -44,6 +48,10 @@ public class Player {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
 
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
     public int getPlayerMatchscore(){
         return playerMatchscore;
     }
@@ -52,7 +60,7 @@ public class Player {
         this.playerMatchscore = playerMatchscore;
     }
 
-    public void addToPlayerMatchscore(int add){
+    public void addPointsToPlayerMatchscore(int add){
 
         this.playerMatchscore+= add;
 
