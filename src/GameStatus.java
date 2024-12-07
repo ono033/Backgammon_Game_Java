@@ -14,7 +14,7 @@ public class GameStatus {
     }
 
     // Method to check the game status and determine the winner
-    public void checkGameEnd(Board board, Player player1, Player player2) {
+    public boolean checkGameEnd(Board board, Player player1, Player player2) {
         int player1win = board.getplayerOff(1); // Checkers removed by Player 1
         int player2win = board.getplayerOff(2); // Checkers removed by Player 2
 
@@ -44,12 +44,37 @@ public class GameStatus {
                 this.points = 1;
             }
         }
+        if (player2win == 12) {
+            if (player1win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
+                System.out.println("Backgammon condition met for Player 2.");
+                player1.setScore(player1.getScore() + 3);
+                this.status = "Backgammon";
+                this.winner = player1;
+                this.points = 3;
+            } else if (player1win == 0) {
+                System.out.println("Gammon condition met for Player 2.");
+                player1.setScore(player1.getScore() + 2);
+                this.status = "Gammon";
+                this.winner = player1;
+                this.points = 2;
+            } else {
+                System.out.println("Single Game Win for Player 2.");
+                player1.setScore(player1.getScore() + 1);
+                this.status = "Single";
+                this.winner = player1;
+                this.points = 1;
+            }
+        }
 
 
 
+        // Print the winning statement if a winner is detected
         if (this.winner != null) {
             System.out.println(this.winner.getPlayerName() + " wins with a " + this.status + "! (" + this.points + " points)");
+            return true; // Game ended
         }
+
+        return false; // Game is ongoing
     }
 
     // Method to check if a player has checkers in their opponent's home quadrant
