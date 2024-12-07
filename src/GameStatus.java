@@ -23,7 +23,7 @@ public class GameStatus {
         this.winner = null;
         this.points = 0;
 
-        if (player1win == 12) {
+        if (player1win == 15) {
             if (player2win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
                 System.out.println("Backgammon condition met for Player 1.");
                 player1.setScore(player1.getScore() + 3);
@@ -44,7 +44,7 @@ public class GameStatus {
                 this.points = 1;
             }
         }
-        if (player2win == 12) {
+        if (player2win == 15) {
             if (player1win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
                 System.out.println("Backgammon condition met for Player 2.");
                 player1.setScore(player1.getScore() + 3);
