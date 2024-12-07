@@ -38,28 +38,27 @@ public class Game {
                 else if(currentCommandCode == 3) {
                     Commands.Pips(gameBoard);
                 }
-                else if (currentCommandCode == 4) {         // Roll command entered or dice command entered
-
-
-                    /*
-                    // if Dice command entered
-                    if(currentCommandCode ==5){
-
-                        rollResult = Commands.getcustomDice();
-                        put else for other rollresult
-                    }
-                    */
-
-                    ///// ono added taking turn (regular)
+                else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
 
 
                     gameBoard.printBoard(playerNumber);
-                    ArrayList<Integer> rollResult = Commands.Roll();
-                    //rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
+                    ArrayList<Integer> rollResult = new ArrayList<>();
+
+
+                    if(currentCommandCode ==6){ // if Dice command entered
+
+                        rollResult = Commands.getCustomDiceResult();
+
+                    }
+
+
+                       else {           // Regular Roll
+                        rollResult = Commands.Roll();
+                    }
 
                     while (true) {
 
-                        gameBoard.printBoard(playerNumber); //ono change back !!
+                        gameBoard.printBoard(playerNumber);
                         gameBoard.printBar();
                         System.out.print("\n\nPlayer " + playerNumber + " Remaining dice: " + rollResult);
                         gameBoard.takeTurn(playerNumber, rollResult);
@@ -67,6 +66,7 @@ public class Game {
 
 
                     }
+
                     //////
                     //Seun Attempt at Integration
                     // Check game status after a turn
@@ -81,6 +81,7 @@ public class Game {
                         gameBoard.initialiseVariables(); // Reset the board
                         gameBoard.setUpBoard();          // Set up for a new game
                         gameTerminated = true;           // End the game loop
+/// end of seun stuff
 
                     }
 
@@ -88,12 +89,12 @@ public class Game {
                     if (playerNumber == 3) {
                         playerNumber = 1;
                     }
-                    //gameBoard.printBoard(playerNumber);
+
 
                     for (int value : rollResult) {              //Print contents of rollResult, FOR TESTING PURPOSES
                         System.out.print(value + " ");          //TESTING PURPOSES
                     }                                           //TESTING PURPOSES
-                    System.out.println("Player " + playerNumber + ", time to roll the dice!");
+                    System.out.println("Player " + playerNumber + ", take turn");
 
 
                 }
@@ -124,5 +125,21 @@ public class Game {
 
     }
 
+    public static void main(String[] args) {        //testing
+        Player.resetPlayercount();
+        Player [] players = new Player[2];
+
+        players[0] = new Player(); // Player One
+        players[1] = new Player();   // Player Two
+
+
+
+
+
+
+
+            Game game = new Game(players[0], players[1]);
+
+    }
 
 }
