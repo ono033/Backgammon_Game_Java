@@ -1,6 +1,10 @@
 # Ignore compiled class files
 *.class
 
+# Specific file to ignore
+src/testdicecommand.java
+
+
 # Package Files #
 *.jar
 *.war

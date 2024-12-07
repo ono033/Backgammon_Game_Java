@@ -29,7 +29,6 @@ public class Board {
     private CheckerProperties player2Type;
 
     public Board() {
-// initialise
 
         initialiseVariables();
          setUpBoard();
@@ -65,6 +64,8 @@ public class Board {
 
     }
 
+
+
     public void printBar(){
         System.out.print("Bar:");
         for(Checker checker: player1Bar){
@@ -88,6 +89,7 @@ public class Board {
                 player2Bar.add(checker);
             }
     }
+
 
     public boolean isPlayerOnBar(int playerNumber){
         ArrayList<Checker> bar = getPlayerbar(playerNumber);
@@ -134,12 +136,12 @@ public class Board {
     }
 
 
-    // input is the pip index to add to and checker you want to add to the pip
+
     public void addCheckertoPip(int pipIndex, Checker checker) {
         getPip(pipIndex).add(checker);
-        // ono add something if full?
 
     }
+
 
     public void addCheckerstoPip(String type, int pipIndex, int number) {
 
@@ -150,6 +152,8 @@ public class Board {
 
 
     }
+
+
 
     public Checker removeCheckerfromPip(int pipIndex) {
         if (pipIndex < 1 || pipIndex > NUMBEROFPIPS) {
@@ -181,6 +185,7 @@ public class Board {
     }
 
 
+
     public CheckerProperties getPlayerType(int playerNumber) {
         if (playerNumber == 1) {
             return player1Type;
@@ -192,6 +197,7 @@ public class Board {
         }
     }
 
+
     public boolean isPlayerChecker(int playerNumber, Checker checker) {
         CheckerProperties playerType = getPlayerType(playerNumber);
         return checker != null && checker.getType() == playerType;
@@ -201,7 +207,7 @@ public class Board {
 
     public void printBoard(int playerNumber) {
     // between 18 and 19 print current players bar
-        //
+
         int opponentPlayerNumber = (playerNumber == 1) ? 2 : 1;
 
         ArrayList<Checker> activePlayerBar = getPlayerbar(playerNumber);
@@ -318,6 +324,7 @@ public class Board {
 
     }
 
+
     public int playerDirection(int playerNumber) {
         if (playerNumber == 1) return -1;
 
@@ -326,7 +333,6 @@ public class Board {
         }
         return 0;
     }
-
 
 
 
@@ -340,6 +346,7 @@ public class Board {
 
         return topChecker;
     }
+
 
     public boolean compareCheckers(Checker checker1, Checker checker2) {
         if (checker1 == null || checker2 == null) {
@@ -380,11 +387,6 @@ public class Board {
 return MoveType.ILLEGAL;
 
     }
-
-
-
-
-
 
 
 
@@ -430,7 +432,7 @@ return MoveType.ILLEGAL;
 
        // System.out.println("movechecker" + moveChecker.toString()); ono remove
         boolean rightCheckertype = isPlayerChecker(playerNumber, moveChecker);
-//if no checker or not players checker on spot
+        //if no checker or not players checker on spot
 
         if (moveChecker == null || !rightCheckertype) {
             System.out.println("moveChecker==null || !rightCheckertype");
