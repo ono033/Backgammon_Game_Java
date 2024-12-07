@@ -7,11 +7,6 @@ public class GameStatus {
     private static Player winner; // Holds the current game's winner
     private static int points; // Points awarded for the win
 
-    //public GameStatus() {
-   //     this.status = "Ongoing";
-    //    this.winner = null;
-       // this.points = 0;
-   // }
 
     // Method to check the game status and determine the winner
     public static boolean checkGameEnd(Board board, Player player1, Player player2) {
@@ -45,23 +40,23 @@ public class GameStatus {
             }
         }
         if (player2win == 15) {
-            if (player1win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
+            if (player1win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 2)) {
                 System.out.println("Backgammon condition met for Player 2.");
-                player1.setScore(player1.getScore() + 3);
+                player2.setScore(player2.getScore() + 3);
                status = "Backgammon";
-                winner = player1;
+                winner = player2;
                 points = 3;
             } else if (player1win == 0) {
                 System.out.println("Gammon condition met for Player 2.");
-                player1.setScore(player1.getScore() + 2);
+                player2.setScore(player2.getScore() + 2);
                 status = "Gammon";
-                winner = player1;
+                winner = player2;
                 points = 2;
             } else {
                 System.out.println("Single Game Win for Player 2.");
-                player1.setScore(player1.getScore() + 1);
+                player2.setScore(player2.getScore() + 1);
                 status = "Single";
-                winner = player1;
+                winner = player2;
                points = 1;
             }
         }
@@ -70,7 +65,9 @@ public class GameStatus {
 
         // Print the winning statement if a winner is detected
         if (winner != null) {
+            System.out.println("Game over!");
             System.out.println(winner.getPlayerName() + " wins with a " + status + "! (" + points + " points)");
+
             return true; // Game ended
         }
 
