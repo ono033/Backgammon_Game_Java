@@ -46,20 +46,19 @@ public class Game {
 
 
                     if(currentCommandCode ==6){ // if Dice command entered
-                       // System.out.println("got to check point:");
+
                         rollResult = Commands.getCustomDiceResult();
-                       // System.out.println("this swejferjbf:" + rollResult);
-                       // put else for other rollresult
+
                     }
 
 
-                       else {    // Regular Roll
+                       else {           // Regular Roll
                         rollResult = Commands.Roll();
                     }
 
                     while (true) {
 
-                        gameBoard.printBoard(playerNumber); //ono change back !!
+                        gameBoard.printBoard(playerNumber);
                         gameBoard.printBar();
                         System.out.print("\n\nPlayer " + playerNumber + " Remaining dice: " + rollResult);
                         gameBoard.takeTurn(playerNumber, rollResult);
@@ -67,19 +66,18 @@ public class Game {
 
 
                     }
-                    //////
 
 
                     playerNumber++;
                     if (playerNumber == 3) {
                         playerNumber = 1;
                     }
-                    //gameBoard.printBoard(playerNumber);
+
 
                     for (int value : rollResult) {              //Print contents of rollResult, FOR TESTING PURPOSES
                         System.out.print(value + " ");          //TESTING PURPOSES
                     }                                           //TESTING PURPOSES
-                    System.out.println("Player " + playerNumber + ", time to roll the dice!");
+                    System.out.println("Player " + playerNumber + ", take turn");
 
 
                 }
