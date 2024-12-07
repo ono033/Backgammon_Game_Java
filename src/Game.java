@@ -38,24 +38,24 @@ public class Game {
                 else if(currentCommandCode == 3) {
                     Commands.Pips(gameBoard);
                 }
-                else if (currentCommandCode == 4) {         // Roll command entered or dice command entered
-
-
-                    /*
-                    // if Dice command entered
-                    if(currentCommandCode ==5){
-
-                        rollResult = Commands.getcustomDice();
-                        put else for other rollresult
-                    }
-                    */
-
-                    ///// ono added taking turn (regular)
+                else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
 
 
                     gameBoard.printBoard(playerNumber);
-                    ArrayList<Integer> rollResult = Commands.Roll();
-                    //rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
+                    ArrayList<Integer> rollResult = new ArrayList<>();
+
+
+                    if(currentCommandCode ==6){ // if Dice command entered
+                       // System.out.println("got to check point:");
+                        rollResult = Commands.getCustomDiceResult();
+                       // System.out.println("this swejferjbf:" + rollResult);
+                       // put else for other rollresult
+                    }
+
+
+                       else {    // Regular Roll
+                        rollResult = Commands.Roll();
+                    }
 
                     while (true) {
 
@@ -110,5 +110,21 @@ public class Game {
 
     }
 
+    public static void main(String[] args) {        //testing
+        Player.resetPlayercount();
+        Player [] players = new Player[2];
+
+        players[0] = new Player(); // Player One
+        players[1] = new Player();   // Player Two
+
+
+
+
+
+
+
+            Game game = new Game(players[0], players[1]);
+
+    }
 
 }
