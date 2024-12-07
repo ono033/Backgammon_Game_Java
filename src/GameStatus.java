@@ -1,56 +1,104 @@
+import java.util.ArrayList;
+
+
 public class GameStatus {
 
-    // Determine the game outcome and update the winner's score
-    public static String checkGameEnd(Board board, Player player1, Player player2) {
+    private String status; // Holds the current game status (e.g., "Backgammon", "Gammon", etc.)
+    private Player winner; // Holds the current game's winner
+    private int points; // Points awarded for the win
+
+    public GameStatus() {
+        this.status = "Ongoing";
+        this.winner = null;
+        this.points = 0;
+    }
+
+    // Method to check the game status and determine the winner
+    public void checkGameEnd(Board board, Player player1, Player player2) {
         int player1win = board.getplayerOff(1); // Checkers removed by Player 1
         int player2win = board.getplayerOff(2); // Checkers removed by Player 2
-        String results = null;
 
-        // Check if Player 1 has removed all their checkers
+        // Reset the status for a new check
+        this.status = "Ongoing";
+        this.winner = null;
+        this.points = 0;
+
         if (player1win == 12) {
-            if (player2win == 0 && !board.getPlayerbar(2).isEmpty()) {
-                // Backgammon: Player 2 has no checkers removed and has checkers on the bar
+            if (player2win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
+                System.out.println("Backgammon condition met for Player 1.");
                 player1.setScore(player1.getScore() + 3);
-                return player1.getPlayerName() + " wins with a Backgammon! (3 points)";
+                this.status = "Backgammon";
+                this.winner = player1;
+                this.points = 3;
             } else if (player2win == 0) {
-                // Gammon: Player 2 has no checkers removed
+                System.out.println("Gammon condition met for Player 1.");
                 player1.setScore(player1.getScore() + 2);
-                return player1.getPlayerName() + " wins with a Gammon! (2 points)";
+                this.status = "Gammon";
+                this.winner = player1;
+                this.points = 2;
             } else {
-                // Single Game Win: Player 2 has at least one checker removed
+                System.out.println("Single Game Win for Player 1.");
                 player1.setScore(player1.getScore() + 1);
-                return player1.getPlayerName() + " wins with a Single! (1 point)";
+                this.status = "Single";
+                this.winner = player1;
+                this.points = 1;
             }
         }
 
-        // Check if Player 2 has removed all their checkers
-        if (player2win == 12) {
-            if (player1win == 0 && !board.getPlayerbar(1).isEmpty()) {
-                // Backgammon: Player 1 has no checkers removed and has checkers on the bar
-                player2.setScore(player2.getScore() + 3);
-                return player2.getPlayerName() + " wins with a Backgammon! (3 points)";
-            } else if (player1win == 0) {
-                // Gammon: Player 1 has no checkers removed
-                player2.setScore(player2.getScore() + 2);
-                return player2.getPlayerName() + " wins with a Gammon! (2 points)";
-            } else {
-                // Single Game Win: Player 1 has at least one checker removed
-                player2.setScore(player2.getScore() + 1);
-                return player2.getPlayerName() + " wins with a Single Game Win! (1 point)";
+
+
+        if (this.winner != null) {
+            System.out.println(this.winner.getPlayerName() + " wins with a " + this.status + "! (" + this.points + " points)");
+        }
+    }
+
+    // Method to check if a player has checkers in their opponent's home quadrant
+    private boolean hasCheckersInOpponentHome(Board board, int playerNumber) {
+        // Player 1's home quadrant is pips 19 to 24
+        // Player 2's home quadrant is pips 1 to 6
+
+        int startPip = (playerNumber == 1) ? 19 : 1;
+        int endPip = (playerNumber == 1) ? 24 : 6;
+
+        // Iterate through all the pips in the opponent's home quadrant
+        for (int pipIndex = startPip; pipIndex <= endPip; pipIndex++) {
+            // Get the checkers on the current pip
+
+            ArrayList<Checker> pip = board.getPip(pipIndex);
+            System.out.println("Checking pip " + pipIndex + " for player " + playerNumber);
+            if (pip != null && !pip.isEmpty()) {
+                for (Checker checker : pip) {
+
+                    // Check if the checker belongs to the opponent
+                    System.out.println("Checker at pip " + pipIndex + ": " + checker);
+                    if (!board.isPlayerChecker(playerNumber, checker)) {
+                        System.out.println("Opponent checker detected in home quadrant at pip " + pipIndex);
+                        return true;
+                    }
+                }
             }
         }
+        return false;
+    }
 
-        //If a winner is determined, reset the board and start a new game
-        if (results!= null) {
-            System.out.println(results);
-            System.out.println("Starting a new game...");
-            board.initialiseVariables(); // Reset the board
-            board.setUpBoard();          // Set up the new game board
-        } else {
-            // Game continues if the game isn't over
-            results = null;
-        }
 
-        return results;
+
+    // Getters and Setters
+    public String getStatus() {
+        return status;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public int getPointsAwarded() {
+        return points;
+    }
+
+    public void reset() {
+        this.status = "Ongoing";
+        this.winner = null;
+        this.points = 0;
     }
 }
