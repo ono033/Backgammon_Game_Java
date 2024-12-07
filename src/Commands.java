@@ -5,16 +5,20 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Commands {
 
+    private static ArrayList<Integer> customDiceResult = new ArrayList<>();
 
 
  public static ArrayList<Integer> getCommand(Board board) {
 
 
      ArrayList<Integer> commandCode = new ArrayList<>();
+
 
 while(true) {
     Scanner scanner = new Scanner(System.in);
@@ -32,17 +36,30 @@ while(true) {
         commandCode = Commands.Test();
         return commandCode;
    }
-else if (userInput.equalsIgnoreCase("hint")) {
+    else if (userInput.equalsIgnoreCase("hint")) {
         commandCode.add(2);
         return commandCode;
 
     } else if (userInput.equalsIgnoreCase("pip")) {
         commandCode.add(3);
         return commandCode;
-    } else {
+    }
+
+    //added by ono
+    else if  (userInput.matches("(?i)^dice \\d+ \\d+$")) {
+        int code = customDiceprocessInput(userInput);
+        if(code==6) {
+            commandCode.add(code);
+            return commandCode;
+        }
+    }
+
+
+else {
         System.out.println("Invalid input. Type 'hint' to see the list of available commands!");
     }
 }
+
  }
 
 
@@ -66,7 +83,7 @@ else if (userInput.equalsIgnoreCase("hint")) {
             System.out.println("You can roll " + die1 +"-"+ die1 +"-"+ die1 +"-"+ die1);
 
             result = new ArrayList<>(Arrays.asList(die1, die1, die1, die1));
-            //result = new int[] {die1, 2 * die1, 3 * die1, 4 * die1};
+
 
         }
         else{
@@ -75,7 +92,7 @@ else if (userInput.equalsIgnoreCase("hint")) {
             System.out.println("Die 2: " + die2);
 
             result = new ArrayList<>(Arrays.asList(die1, die2));
-            //result = new int[] {die1, die2, die1 + die2};
+
 
         }
     return result;
@@ -90,6 +107,7 @@ else if (userInput.equalsIgnoreCase("hint")) {
             System.out.println("'test': Input a .txt file with a list of commands for the game to execute");
             System.out.println("'pip': Reports the pip count for both players");
             System.out.println("'hint': List all allowed commands");
+            System.out.println("'dice <int> <int>': Set the dice roll eg: \"dice 2 4\" ");
             System.out.println("---------------------------------------");
             System.out.println("(Note, these are not case sensitive!)");
             System.out.println("");
@@ -150,11 +168,66 @@ else if (userInput.equalsIgnoreCase("hint")) {
 
             } else if (line.equalsIgnoreCase("pip")) {
                 return 3;
-            } else {
+            }
+            else if(line.matches("(?i)^dice \\d+ \\d+$")){
+
+            customDiceprocessInput(line);  //update custom dice
+                return 6;
+            }
+            else {
                 return 5;
             }
         }
 
+
+
+        public static int customDiceprocessInput(String userInput) { //added by ono
+
+
+                Pattern pattern = Pattern.compile("^dice (\\d+) (\\d+)$");
+                Matcher matcher = pattern.matcher(userInput.toLowerCase());
+
+                if (matcher.find()) {
+                    try {
+                        int dice1 = Integer.parseInt(matcher.group(1)); // First number
+                        int dice2 = Integer.parseInt(matcher.group(2)); // Second number
+
+
+                        // Validate the dice values
+                        if (dice1 >= 1 && dice1 <= 6 && dice2 >= 1 && dice2 <=6) {
+
+                            setCustomDice(dice1,dice2);
+
+                            return 6;
+
+
+                        } else {
+                            System.out.println("Custom Dice values must be between 1 and 6. Enter valid command:");
+                            return -1;
+                        }
+
+                    }
+
+                    catch (NumberFormatException e) {
+                        System.out.println("Error: Invalid number format. Please enter valid integers.  \nEnter valid command:");
+                    }
+                }
+            return -1;
+        }
+
+
+
+    public static void setCustomDice(int dice1, int dice2) {
+        customDiceResult.clear();
+        customDiceResult.add(dice1);
+        customDiceResult.add(dice2);
+        System.out.println("Custom dice set to: " + customDiceResult);
+    }
+
+    public static ArrayList<Integer> getCustomDiceResult() {
+        //  System.out.println("checkpoint in command");
+        return customDiceResult;
+    }
 }
 
 
