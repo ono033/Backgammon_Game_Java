@@ -8,18 +8,16 @@ public class Player {
     private String playerName;
     private int score;
     private int playerNumber;
-    private int playerMatchscore =0;
+    public boolean canDouble;
+    public boolean hasRolled;
 
 
-    public Player() {
-        playerCount++;
-        this.playerNumber = playerCount;
+    public Player(int playerNumber) {
+        this.playerNumber = playerNumber;
         this.score = 0; // Initialize score to 0
+        this.canDouble=true;
+        this.hasRolled=false;
         enterPlayerName();
-    }
-
-    public static void resetPlayercount(){
-        playerCount=0;
     }
 
     public String getPlayerName() {
@@ -28,6 +26,10 @@ public class Player {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 
     public int getScore() {
@@ -40,41 +42,30 @@ public class Player {
 
     public void enterPlayerName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Player " + playerNumber + ", please enter your name: ");
+        System.out.print("Player " + this.playerNumber + ", please enter your name: ");
         setPlayerName(scanner.nextLine());
     }
 
+    public void setCanDouble(boolean status) {
+        this.canDouble = status;
+
+    }
+
+    public void setHasRolled(boolean status) {
+        this.hasRolled = status;
+    }
     public void displayPlayerInfo() {
         System.out.println("Player: " + getPlayerName() + ", Score: " + getScore());
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
-
-    public int getPlayerMatchscore(){
-        return playerMatchscore;
-    }
-
-    public void setPlayerMatchscore(int playerMatchscore){
-        this.playerMatchscore = playerMatchscore;
-    }
-
-    public void addPointsToPlayerMatchscore(int add){
-
-        this.playerMatchscore+= add;
-
-    }
 
 
+    //public static void main(String[] args) {
+      // Player player = new Player();
+       //player.displayPlayerInfo();
+    //}
+    //doubleStatus(int doublingPlayer, receivingPlayer){
 
-
-
-    /*
-    public static void main(String[] args) {
-       Player player = new Player();
-       player.displayPlayerInfo();
-    }
-*/
+    //}
 
 }

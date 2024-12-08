@@ -3,21 +3,31 @@ import java.util.*;
 
 public class Game {
 //
+
    // GameStatus gameStatus;
     public Game(Player playerOne, Player playerTwo) {
 
         int playerNumber = 1;
-       // Player playerOne = new Player(); initialised in match instead
-       playerOne.displayPlayerInfo();
+        Player playerOne = new Player(1);
+        playerOne.displayPlayerInfo();
 
-       // Player playerTwo = new Player();
+        Player playerTwo = new Player(2);
         playerTwo.displayPlayerInfo();
+
+        // Add players to a list
+        List<Player> players = new ArrayList<>();
+        players.add(playerOne);
+        players.add(playerTwo);
+
+        // Initialize TurnManager with the players list
+        TurnManager turnManager = new TurnManager(players);
+        Player currentPlayer = turnManager.getCurrentPlayer();
+
 
         ArrayList<Integer> commandCode = new ArrayList<>();
         System.out.println("Game Starting...");
         Board gameBoard = new Board();
         gameBoard.printBoard(playerNumber);
-        System.out.println("Player " + playerNumber + ", time to roll the dice!");
 
 
         boolean gameTerminated = false;
@@ -26,6 +36,7 @@ public class Game {
             break;
         }
         else {
+            System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice!");
             commandCode = Commands.getCommand(gameBoard);
             for (Integer currentCommandCode : commandCode) {
                 if (currentCommandCode == 1) {             // Quit command entered
@@ -38,32 +49,35 @@ public class Game {
                 else if(currentCommandCode == 3) {
                     Commands.Pips(gameBoard);
                 }
-                else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
+                else if(currentCommandCode == 7) {
+                    Commands.Double(currentPlayer,turnManager.getOtherPlayer());
+                }
+                else if(currentCommandCode == 9) {
+                    Commands.doubleStatus(currentPlayer,turnManager.getOtherPlayer());
+                }
+                else if(currentCommandCode == 8) {
+                    System.out.println("Invalid input. Type 'hint' to see the list of available commands!");
+                }
 
 
+                else if (currentCommandCode == 4) {         // Roll command entered
+
+
+                    ///// ono added taking turn (regular)
+                    currentPlayer.setHasRolled(true);
                     gameBoard.printBoard(playerNumber);
-                    ArrayList<Integer> rollResult = new ArrayList<>();
-
-
-                    if(currentCommandCode ==6){ // if Dice command entered
-
-                        rollResult = Commands.getCustomDiceResult();
-
-                    }
-
-
-                       else {           // Regular Roll
-                        rollResult = Commands.Roll();
-                    }
+                    ArrayList<Integer> rollResult = Commands.Roll();
+                    //rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
 
                     while (true) {
 
-                        gameBoard.printBoard(playerNumber);
+                        gameBoard.printBoard(playerNumber); //ono change back !!
                         gameBoard.printBar();
                         System.out.print("\n\nPlayer " + playerNumber + " Remaining dice: " + rollResult);
                         gameBoard.takeTurn(playerNumber, rollResult);
                         if (rollResult.isEmpty()) break;         //once all dice used up
-
+                        turnManager.nextTurn();
+                        currentPlayer = turnManager.getCurrentPlayer();
 
                     }
 
@@ -85,21 +99,10 @@ public class Game {
 
                     }
 
-                    playerNumber++;
-                    if (playerNumber == 3) {
-                        playerNumber = 1;
-                    }
-
-
-                    for (int value : rollResult) {              //Print contents of rollResult, FOR TESTING PURPOSES
-                        System.out.print(value + " ");          //TESTING PURPOSES
-                    }                                           //TESTING PURPOSES
-                    System.out.println("Player " + playerNumber + ", take turn");
-
-
                 }
             }
             //Game game = new Game();
+
         }
         }
 
@@ -125,21 +128,5 @@ public class Game {
 
     }
 
-    public static void main(String[] args) {        //testing
-        Player.resetPlayercount();
-        Player [] players = new Player[2];
-
-        players[0] = new Player(); // Player One
-        players[1] = new Player();   // Player Two
-
-
-
-
-
-
-
-            Game game = new Game(players[0], players[1]);
-
-    }
 
 }
