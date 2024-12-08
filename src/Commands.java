@@ -20,6 +20,7 @@ public class Commands {
     Scanner scanner = new Scanner(System.in);
     String userInput = scanner.nextLine();
 
+
     if (userInput.equalsIgnoreCase("quit")) {
         System.out.println("Quitting game..");
         commandCode.add(1);
