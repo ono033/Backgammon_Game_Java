@@ -171,6 +171,7 @@ public class Commands {
             Scanner inputScanner = new Scanner(System.in);
             String filePath = inputScanner.nextLine(); // Read file name from the user
             ArrayList<Integer> fileCommandCodes = new ArrayList<>();
+
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = br.readLine()) != null) {

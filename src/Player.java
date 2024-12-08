@@ -11,6 +11,7 @@ public class Player {
     public boolean canDouble;
     public boolean hasRolled;
 
+
     public Player(int playerNumber) {
         this.playerNumber = playerNumber;
         this.score = 0; // Initialize score to 0

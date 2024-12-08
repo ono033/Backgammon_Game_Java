@@ -58,6 +58,7 @@ public class Game {
                     System.out.println("Invalid input. Type 'hint' to see the list of available commands!");
                 }
 
+
                 else if (currentCommandCode == 4) {         // Roll command entered
 
 

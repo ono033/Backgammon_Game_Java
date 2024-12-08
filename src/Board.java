@@ -21,6 +21,7 @@ public class Board {
         LEGAL, ILLEGAL, KNOCKOUT, RE_ENTRY, KNOCKOUT_RE_ENTRY
     }
 
+
     private CheckerProperties player1Type;
     private CheckerProperties player2Type;
 
