@@ -16,7 +16,7 @@ public class Commands {
 
      ArrayList<Integer> commandCode = new ArrayList<>();
 
-while(true) {
+
     Scanner scanner = new Scanner(System.in);
     String userInput = scanner.nextLine();
 
@@ -27,22 +27,29 @@ while(true) {
     } else if (userInput.equalsIgnoreCase("roll")) {
         commandCode.add(4);
         return commandCode;
-    }
-    else if (userInput.equalsIgnoreCase("test")) {
+    } else if (userInput.equalsIgnoreCase("test")) {
         commandCode = Commands.Test();
         return commandCode;
-   }
-else if (userInput.equalsIgnoreCase("hint")) {
+    } else if (userInput.equalsIgnoreCase("hint")) {
         commandCode.add(2);
         return commandCode;
 
     } else if (userInput.equalsIgnoreCase("pip")) {
         commandCode.add(3);
         return commandCode;
-    } else {
-        System.out.println("Invalid input. Type 'hint' to see the list of available commands!");
+    } else if (userInput.equalsIgnoreCase("double")) {
+         commandCode.add(7);
+         return commandCode;
+     }
+     else if (userInput.equalsIgnoreCase("doubleStatus")) {
+         commandCode.add(9);
+         return commandCode;
+     }
+     else {
+         commandCode.add(8);
+        return commandCode;
     }
-}
+
  }
 
 
@@ -90,6 +97,8 @@ else if (userInput.equalsIgnoreCase("hint")) {
             System.out.println("'test': Input a .txt file with a list of commands for the game to execute");
             System.out.println("'pip': Reports the pip count for both players");
             System.out.println("'hint': List all allowed commands");
+            System.out.println("'double': The player who owns the double cube can propose to double the stakes of the game");
+            System.out.println("'doubleStatus': Displays the name of the player who owns the doubling cube");
             System.out.println("---------------------------------------");
             System.out.println("(Note, these are not case sensitive!)");
             System.out.println("");
@@ -101,7 +110,7 @@ else if (userInput.equalsIgnoreCase("hint")) {
         int opips=0;
         int invertXpip=0;
         for(int i=1; i<=24;i++){
-            for(int j=0;j<=4;j++){
+            for(int j=0;j<=5;j++){
                 Checker checker = board.getChecker(i, j);
                 if (checker == null) {
                     continue; // Skip to the next iteration if there's no checker or type is null
@@ -119,17 +128,55 @@ else if (userInput.equalsIgnoreCase("hint")) {
         System.out.println("Number of pips for Player 2: "+ xpips);
         }
 
+        public static void Double(Player doublingPlayer, Player receivingPlayer){
+        if (doublingPlayer.canDouble && !doublingPlayer.hasRolled ){
+            System.out.println(doublingPlayer.getPlayerName()+ " has offered a double!");
+            System.out.println("The current stakes are:");
+            System.out.println(receivingPlayer.getPlayerName()+ ", would you like to accept? (Yes/No)");
+
+            Scanner scanner = new Scanner(System.in);
+            String userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("yes")) {
+                System.out.println("Stakes doubled!");
+                System.out.println("Current stakes are:");
+                System.out.println(receivingPlayer.getPlayerName()+ ", you are now the owner of the doubling cube!");
+                doublingPlayer.setCanDouble(false);
+                receivingPlayer.setCanDouble(true);
+            }
+            else if (userInput.equalsIgnoreCase("no")) {
+                System.out.println("Stakes not doubled.");
+                System.out.println(receivingPlayer.getPlayerName()+ ", you must now concede the game and pay one point");
+
+            }
+        }
+        else {
+            System.out.println(doublingPlayer.getPlayerName()+ ", you are not allowed to double.");
+        }
+
+        }
+        public static void doubleStatus(Player player1, Player player2){
+        if (player1.canDouble){
+            System.out.println(player1.getPlayerName() + " owns the doubling cube!" );
+        }
+        else{
+            System.out.println(player2.getPlayerName() + " owns the doubling cube!" );
+        }
+
+        }
+
         public static ArrayList<Integer> Test() {
             System.out.println("Please input the filename with the requested commands in the following format:");
             System.out.println("filename.txt");
             Scanner inputScanner = new Scanner(System.in);
             String filePath = inputScanner.nextLine(); // Read file name from the user
             ArrayList<Integer> fileCommandCodes = new ArrayList<>();
-
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = br.readLine()) != null) {
+                    line=line.trim();
                     fileCommandCodes.add(processFileCommands(line));
+                    System.out.println("Line read: " + line);
                 }
             } catch (IOException e) {
                 System.err.println("Error reading the file: " + e.getMessage());
@@ -150,8 +197,16 @@ else if (userInput.equalsIgnoreCase("hint")) {
 
             } else if (line.equalsIgnoreCase("pip")) {
                 return 3;
-            } else {
-                return 5;
+
+            }
+             else if (line.equalsIgnoreCase("double")) {
+                return 7;
+            }
+            else if (line.equalsIgnoreCase("doubleStatus")) {
+                return 9;
+            }
+            else {
+                return 8;
             }
         }
 
