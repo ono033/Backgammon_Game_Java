@@ -11,7 +11,7 @@ public class Commands {
 
 
 
- public static ArrayList<Integer> getCommand(Board board) {
+ public static ArrayList<Integer> getCommand(Board gameBoard) {
 
 
      ArrayList<Integer> commandCode = new ArrayList<>();
@@ -19,6 +19,7 @@ public class Commands {
 
     Scanner scanner = new Scanner(System.in);
     String userInput = scanner.nextLine();
+
 
 
     if (userInput.equalsIgnoreCase("quit")) {
@@ -211,6 +212,7 @@ public class Commands {
                 return 8;
             }
         }
+
 
 }
 
