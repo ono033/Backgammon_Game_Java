@@ -510,9 +510,10 @@ return MoveType.ILLEGAL;
                 if (moveType != MoveType.ILLEGAL) {
                     ArrayList<Object> moveEntry = new ArrayList<Object>(Arrays.asList(count, sourceIndex, destinationIndex, moveCount, moveType));
                     legalMoves.add(moveEntry);
+                    count++;
                 }
 
-                count++;
+             //   count++;   onosen this is what i removed
             }
 
         }
@@ -576,7 +577,7 @@ return MoveType.ILLEGAL;
 
                            ArrayList<Object> moveEntry = new ArrayList<Object>(Arrays.asList(count, sourceIndex, playerNumber, moveCount, moveType));
                            legalMoves.add(moveEntry);
-                           count++;
+                           count++;     //ono tell sahar to add here
 
                        }
                     }
@@ -616,7 +617,12 @@ return MoveType.ILLEGAL;
 
 
 
+        // Check if move limits the highest dice from being used
+        int maxDice = Collections.max(rollResult);
 
+        //Check if highest dice only used once
+
+        //if yes then find lower dice move thats from same sourcepip and remove it from legalmoves
 
         return legalMoves;
 
@@ -659,7 +665,7 @@ return MoveType.ILLEGAL;
         return true;
 
     }
-    
+
 
 
     public MoveType isLegalBearOff(int playerNumber, int sourceIndex, int moveCount){   //for direct bear off (if pip number = dice number)
@@ -929,6 +935,7 @@ public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what
 
     else System.out.println("Move Failed");
 }
+
 
 
 public static void main(String[] args) {

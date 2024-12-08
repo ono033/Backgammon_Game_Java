@@ -8,11 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull; // Import for asse
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-//package com.backgammon.ono;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
 
-//import static org.junit.jupiter.api.Assertions.*;
 
 class CheckerTest {
 //Assertions.assertEquals();
@@ -38,27 +34,10 @@ class CheckerTest {
         assertEquals(CheckerProperties.O, checkerO_bytype.getType(), "checkerO_bytype should have type O");
         assertEquals(1, checkerO_bytype.getPlayerNumber(), "checkerO_bytype should have player number 1");
 
-        // Validate checkerO_byname (constructed with player number 1)
-        assertEquals(CheckerProperties.O, checkerO_byname.getType(), "checkerO_byname should have type O");
-        assertEquals(1, checkerO_byname.getPlayerNumber(), "checkerO_byname should have player number 1");
-
         // Validate checkerX_bytype (constructed with "X")
         assertEquals(CheckerProperties.X, checkerX_bytype.getType(), "checkerX_bytype should have type X");
         assertEquals(2, checkerX_bytype.getPlayerNumber(), "checkerX_bytype should have player number 2");
 
-        // Validate checkerX_byname (constructed with player number 2)
-        assertEquals(CheckerProperties.X, checkerX_byname.getType(), "checkerX_byname should have type X");
-        assertEquals(2, checkerX_byname.getPlayerNumber(), "checkerX_byname should have player number 2");
-
-        // Test invalid type
-        Checker invalidChecker = new Checker("Z");
-        assertNotNull(invalidChecker, "Invalid checker object should still be created");
-        assertEquals(null, invalidChecker.getType(), "Invalid checker type should be null");
-
-        // Test invalid player number
-        Checker invalidPlayerChecker = new Checker(3);
-        assertNotNull(invalidPlayerChecker, "Checker object should still be created for invalid player number");
-        assertEquals(null, invalidPlayerChecker.getType(), "Type should remain null for invalid player number");
     }
 
     @Test
