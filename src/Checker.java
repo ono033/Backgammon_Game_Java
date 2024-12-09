@@ -5,7 +5,7 @@ public class Checker {
     public CheckerProperties type;
 
     public  Checker(String type){
-// hi
+
     if (CheckerProperties.X == CheckerProperties.valueOf(type)){
     this.type = CheckerProperties.X;
     }

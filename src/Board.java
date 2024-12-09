@@ -207,7 +207,9 @@ public class Board {
         ArrayList<Checker> activePlayerBar = getPlayerbar(playerNumber);
         ArrayList<Checker> opponentPlayerBar = getPlayerbar(opponentPlayerNumber);
 
-        System.out.println("Player" + playerNumber + "'s Board");
+        String playerType = getPlayerType(playerNumber).name();
+
+        System.out.println("Player" + playerNumber + "'s Board" + "("+ playerType +")");
         System.out.println("13--+---+---+---+---18   BAR   19--+---+---+---+---24   Player " + opponentPlayerNumber + " OFF: " + getplayerOff(opponentPlayerNumber));
 
         for (int i = 0; i < 5; i++) {
@@ -462,7 +464,7 @@ public class Board {
         int sourceIndex;
         int destinationIndex;
 
-
+        // Logic to generate moves based on dice rolls
         boolean doubles = false;
         int count = 1;
         if(isPlayerOnBar(playerNumber)) {
@@ -492,54 +494,37 @@ public class Board {
 
         else{
 
-            //int count = 1;
-            // legalMoves[ index, source, destination, no of moves, movetype ]
-
             if (rollResult.size()>2 && rollResult.get(0).equals(rollResult.get(1))){
                 doubles = true;
             }
-
+            // go through dice
             for (int moveCount : rollResult) {
                 sourceIndex = 1; // loop from 1 - 24 ono
-                while (sourceIndex < NUMBEROFPIPS + 1) {
-                    //go through checkers
 
-                    // go through dice combos
-                    //int moveCount = 0;
-                    //moveCount = rollResult[0]; // ono remove
+                while (sourceIndex < NUMBEROFPIPS + 1) {    //go through checkers
 
                     MoveType moveType = isLegal(playerNumber, sourceIndex, moveCount);
                     destinationIndex = sourceIndex + (moveCount * playerDirection(playerNumber));
-                    //      System.out.println("Dice Moves:" + moveCount + "\nFrom" + sourceIndex + " to " + destinationIndex + " Is moveType:" + moveType); ono take out
 
                     if (moveType != MoveType.ILLEGAL) { //if (moveType == MoveType.LEGAL || moveType == MoveType.KNOCKOUT) {
 
-
                         ArrayList<Object> moveEntry = new ArrayList<Object>(Arrays.asList(count, sourceIndex, destinationIndex, moveCount, moveType));
-
                         legalMoves.add(moveEntry);
-
                         count++;
-                    }
 
+                    }
 
                     sourceIndex++;
                 }
-                if(doubles) return legalMoves; // dont got through dice again since its all the same
+                if(doubles) return legalMoves; // dont go through dice again since they are all the same
             }
 
             // Player can only Bear - off if no more legal moves allowed and all checkers are in homeboard
-
             // if legal moves empty then you can begin bear off
             if (legalMoves.isEmpty() && canBearoff(playerNumber)) {
 
-                // destination?
-                // for regular bear off loop through pips and dice to check if can bear off
-                // loop through dice
-                //loop through pips/*
-
                 for (int moveCount : rollResult) {// loop through dice
-                    //loop through pips
+                    //Loop through pips
                     for(int i= 1;i<=NUMBEROFPIPS;i++){
                         sourceIndex =i;
 
@@ -553,17 +538,13 @@ public class Board {
                         }
                     }
 
-                    // ono check the playernumber and movecount
-                    if(doubles) return legalMoves; // dont got through dice again since its all the same
+                    if(doubles) return legalMoves; // Dont got through dice again since its all the same
 
                 }
 
-
-
-
+                // If still empty then for force bear off with the highest dice if possible
                 if (legalMoves.isEmpty() && canBearoff(playerNumber)) {
-                    // if still empty then for force bear off pass in highest dice
-                    //loop thru pips not dice
+
                     int maxDice = Collections.max(rollResult);
                     int highestPip = getHighestOccupiedPipIndex(playerNumber);
                     MoveType moveType = isLegalForceBearOff(playerNumber, maxDice);
@@ -580,37 +561,30 @@ public class Board {
 
                 }
 
-
             }
-
 
         }
 
+        // Once Legal moves has been created, Check if move limits the highest dice from being used
         if(!doubles) {
-            // Check if move limits the highest dice from being used
             int maxDice = Collections.max(rollResult);
-
-
-
             int maxDicecount = 0;
             int maxDiceSourcePipIndex = 0;
 
             //Check if highest dice only used once
-            //Check if highest dice only used once
-            // ArrayList move = new ArrayList <Object>();
             for (ArrayList <Object> move:legalMoves) {
 
-                //if yes then find lower dice move thats from same sourcepip and remove it from legalmoves
+                //If yes then find lower dice move that's from same sourcepip and remove it from legalmoves
                 int diceValue = (int) move.get(DICE_VALUE);
                 if (diceValue == maxDice) {
                     maxDiceSourcePipIndex = (int) move.get(SOURCE_PIP);
                     maxDicecount++;
                 }
             }
+
             if (maxDicecount == 1) {
                 ArrayList<ArrayList<Object>> movesToRemove = new ArrayList<>();
-                //Find lower dice move thats from same sourcepip and remove it from legalmoves
-                // only if from another dice too
+                //Find lower dice move that's from same sourcepip and remove it from legalmoves, only if its from another dice too
                 for (ArrayList <Object> move:legalMoves) {
                     int sourcePipIndex = (int)move.get(SOURCE_PIP);
                     int diceValue = (int)move.get(DICE_VALUE);
@@ -622,32 +596,26 @@ public class Board {
             }
         }
 
-
-
         return legalMoves;
 
     }
 
+    // Checks if a player can bear off
     public boolean canBearoff(int playerNumber){
-        //Checks if all of player's checkers are on home board
-        // - Validates that no checkers are on bar and no checkers are outside of home board
 
+        // Validates  if all of player's checkers are on home board and that no checkers are on bar
         if (isPlayerOnBar(playerNumber)) {  //player cannot bear off if they are on Bar
             return false;
         }
-
 
         int direction = playerDirection(playerNumber);
 
         int startInvalidRange = (playerNumber == 1) ? 24 : 1;   // Player 1 starts at pip 7
         int pipIndex = startInvalidRange;
-        //int endInvalidRange = (playerNumber == 1) ? 24 : 18;   // Player 1 ends at pip 24
         ArrayList<Checker> pip;
 
-        // for(int i = startInvalidRange; i <= endInvalidRange; i++) {}
-
-        for (int i = 1; i <= 18; i++) {
-            //checks players non home board pips
+           for (int i = 1; i <= 18; i++) {
+            //checks player's non home board pips
 
             pip = getPip(pipIndex);
 
@@ -663,20 +631,15 @@ public class Board {
 
         }
         return true;
-
     }
 
 
-
+    // Checks if a direct bear off is legal
     public MoveType isLegalBearOff(int playerNumber, int sourceIndex, int moveCount){   //for direct bear off (if pip number = dice number)
 
-        // should this take in roll result and just go thru all or no.. return bearoff or forcebearoff
-        //  should be called when looping through pips
-        // if pip has checker and is player checker
         ArrayList<Checker> sourcePip = getPip(sourceIndex);
 
         if (sourcePip == null||sourcePip.isEmpty()) {
-            // System.out.println("Source pip is empty or null."); ono remove
             return MoveType.ILLEGAL;
         }
 
@@ -684,7 +647,6 @@ public class Board {
         Checker moveChecker = getTopCheckerfromPip(sourceIndex);
 
         if (moveChecker == null || !isPlayerChecker(playerNumber, moveChecker)) {
-            //  System.out.println("No checker to move or checker does not belong to player."); ono remove
             return MoveType.ILLEGAL;
         }
 
@@ -696,13 +658,8 @@ public class Board {
 
         return MoveType.ILLEGAL;
     }
-
+    // Checks if a forced bear off is legal (max dice is passed in
     public MoveType isLegalForceBearOff(int playerNumber, int moveCount) {
-        //pass in largest dice
-        // must pass in largest pip number and then check if over the dice roll... if 2 dice?
-// int max = Collections.max(diceRoll)
-        //if if over highest pip then force off
-        //ono add checks
 
         int highestPipIndex = getHighestOccupiedPipIndex(playerNumber);
 
@@ -714,14 +671,13 @@ public class Board {
             return MoveType.FORCE_BEAR_OFF;
         }
 
-
         return MoveType.ILLEGAL;
-
 
     }
 
+    // Returns the highest occupied pip index in the home board
     private int getHighestOccupiedPipIndex(int playerNumber) {
-        // p1 home: 1- 6 p2 : 24 -19
+        // p1 home: 1- 6 p2 home: 24 -19
         int pipIndex = (playerNumber == 1) ? 1 : 24;
         int direction = (playerNumber == 1) ? 1 : -1;
 
@@ -744,30 +700,7 @@ public class Board {
         return highestOccupiedPip;
     }
 
-
-
-
-
-
-
-  /*  public void bearOffChecker(int pipIndex, int playerNumber){
-        // function that use this must perform necessary checks so this can be used without checks
-
-        // remove top checker from pip
-        removeCheckerfromPip(pipIndex);
-
-        // add to player off
-
-        if(playerNumber==1){
-            player1Off++;
-        }
-        else {
-        player2Off++;
-        }
-
-
-    } */
-
+    // Bears off a checker from the board
     public void bearOffChecker(int pipIndex) {
         // Remove the top checker from the pip
         Checker checker = removeCheckerfromPip(pipIndex);
@@ -785,7 +718,7 @@ public class Board {
         }
     }
 
-
+    // Returns the number of checkers a player has borne off
     public int getplayerOff(int playerNumber){
 
         if (playerNumber==1){
@@ -796,14 +729,12 @@ public class Board {
 
     }
 
-
+    // Prints all legal moves for a player
     public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves, int playerNumber) {
         // System.out.println("Legal Moves:");
         int moveNumber = 0;
         for (ArrayList<Object> move : legalMoves) {
-            //  System.out.println("Move " + move.get(0) + ": From Pip " + move.get(1) + " to Pip " + move.get(2) + ", Dice Value: " + move.get(3) + ", Move Type: " + move.get(4));
-            //   System.out.println(move);
-            // if(canBearoff(playerDirection()))
+
             moveNumber++;
             //print source and destination for player 2
             int printSourcePip = (int) move.get(SOURCE_PIP);
@@ -814,20 +745,24 @@ public class Board {
                 printSourcePip = 25-printSourcePip;
                 printDestinationPip = 25 - printDestinationPip;
             }
-
+            /*
+            if (printDestinationPip<1||printDestinationPip>24){
+                printDestinationPip
+            }
+*/
             System.out.println("Move " + moveNumber +
                     ": From Pip " + printSourcePip +
                     " to Pip " + printDestinationPip +
                     "         Dice Value: " + move.get(DICE_VALUE) +
                     ", Move Type: " + move.get(MOVE_TYPE) );
 
-
         }
     }
 
+    // Executes a move if it's valid
     public boolean makeMove(ArrayList<ArrayList<Object>> legalMoves, int moveNumber){
 
-        if(moveNumber<1 || moveNumber>legalMoves.size()) {      //ono check if this line is right
+        if(moveNumber<1 || moveNumber>legalMoves.size()) {
             System.out.println("Illegal Move");
             return false;
         }
@@ -841,7 +776,6 @@ public class Board {
             System.out.println("Illegal Move");
             return false;
         }
-
 
         if(moveType == MoveType.RE_ENTRY){
             moveBartoPip(sourceIndex, destinationIndex);            //also removes from bar
@@ -875,7 +809,7 @@ public class Board {
         }
 
         if(moveType == MoveType.BEAR_OFF || moveType == MoveType.FORCE_BEAR_OFF){
-            // int playerNumber = get
+
             bearOffChecker(sourceIndex);
             System.out.println("Bear Off... Successfull");
 
@@ -884,6 +818,7 @@ public class Board {
         return true;
     }
 
+    // Moves a checker from a bar to a pip
     public void moveBartoPip(int sourceIndex, int destinationIndex){
         int playerNumber;
 
@@ -891,23 +826,22 @@ public class Board {
             playerNumber =  1;
         }
         else if (sourceIndex ==0) {
-            playerNumber =  2; //
+            playerNumber =  2;
         }
 
         else return;
 
         Checker checker = removefromBar(playerNumber);
 
-        //Checker checker = removeCheckerfromPip(sourceIndex);
         if (checker == null) {
             System.out.println("No checker to move");
         }
         addCheckertoPip(destinationIndex, checker);
     }
 
-
+    // Handles a player's turn
     public void takeTurn(int playerNumber,  ArrayList<Integer>  diceRoll){//ono what do I add?
-//
+
         ArrayList<ArrayList<Object>> legalMoves = legalMoves(playerNumber, diceRoll);
         System.out.println("\nSelect Move: " );
         printLegalMoves(legalMoves, playerNumber);
@@ -925,10 +859,8 @@ public class Board {
         }
         int moveNumber = scanner.nextInt();
 
-//if no more legal moves
-
         boolean moveSuccess = makeMove(legalMoves, moveNumber);
-// remove dice
+        // remove dice
         if(moveSuccess) {
             int diceValue = (int) legalMoves.get(moveNumber - 1).get(DICE_VALUE);
             diceRoll.remove(Integer.valueOf(diceValue));
@@ -936,102 +868,5 @@ public class Board {
 
         else System.out.println("Move Failed");
     }
-
-
-    public static void main(String[] args) {
-
-        Board board = new Board();
-
-        board.addCheckerstoPip("O", 1, 1); // Player 1: Checker on pip 1
-        board.addCheckerstoPip("O", 3, 4); // Player 1: Checker on pip 3
-        board.addCheckerstoPip("O", 5, 5); // Player 1: Checker on pip 5 (highest for Player 1)
-        board.addCheckerstoPip("O", 6, 1);
-
-
-        board.addCheckerstoPip("X", 24, 1); // Player 2: Checker on pip 24
-        board.addCheckerstoPip("X", 22, 4); // Player 2: Checker on pip 22
-        board.addCheckerstoPip("X", 20, 4); // Player 2: Checker on pip 20 (highest for Player 2)
-
-
-        int playerNumber = 1;
-        while(true) {
-
-            // ArrayList<Integer> rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
-            ArrayList<Integer> rollresult = Commands.Roll();
-            while(true) {
-
-                // board.printBoard(1); //ono change back !!
-                board.printBoard(playerNumber);
-                board.printBar();
-                // System.out.println("Player turn:" + playerNumber);
-                System.out.print("\nPlayer " + playerNumber + " Remaining dice: " + rollresult);
-                board.takeTurn(playerNumber, rollresult);
-                if(rollresult.isEmpty()) break;
-
-
-
-            }
-            if (playerNumber == 1) playerNumber++;
-
-
-            else playerNumber =1;
-
-        }
-
-
-
-
-/*
-
-    Board board = new Board();
-
-    // Example setup for Player 1 and Player 2
-   board.addCheckerstoPip("O", 1, 1); // Player 1: Checker on pip 1
-    board.addCheckerstoPip("O", 3, 1); // Player 1: Checker on pip 3
-    board.addCheckerstoPip("O", 5, 5); // Player 1: Checker on pip 5 (highest for Player 1)
-   board.addCheckerstoPip("O", 6, 1);
-
-
-    board.addCheckerstoPip("X", 24, 1); // Player 2: Checker on pip 24
-    board.addCheckerstoPip("X", 22, 1); // Player 2: Checker on pip 22
-    board.addCheckerstoPip("X", 20, 1); // Player 2: Checker on pip 20 (highest for Player 2)
-
-    // Testing getHighestOccupiedPipIndex
-    int highestPipPlayer1 = board.getHighestOccupiedPipIndex(1); // Should return 5
-    int highestPipPlayer2 = board.getHighestOccupiedPipIndex(2); // Should return 20
-
-    System.out.println("Highest occupied pip for Player 1: " + highestPipPlayer1);
-    System.out.println("Highest occupied pip for Player 2: " + highestPipPlayer2);
-
-    // Additional edge case testing
-    // Clear Player 1's home board and test
-    board.removeCheckerfromPip(1);
-    board.removeCheckerfromPip(3);
-    board.removeCheckerfromPip(5);
-
-    highestPipPlayer1 = board.getHighestOccupiedPipIndex(1); // Should return -1
-    System.out.println("Highest occupied pip for Player 1 (after clearing): " + highestPipPlayer1);
-*/
-
-
-    }
-
-    //TEST FOR MY GAMESTATUS SEUN
-    public void setUpBackgammonTest() {
-        initialiseVariables(); // Reset board
-
-        // Player 1 has borne off all checkers
-        player1Off = 12;
-
-        // Player 2 has no checkers borne off but has checkers in Player 1's home quadrant and on the bar
-        addCheckerstoPip("X", 19, 2); // Checkers in Player 1's home quadrant
-        addCheckerstoPip("X", 20, 1); // Another checker in Player 1's home quadrant
-        getPlayerbar(2).add(new Checker("X")); // Checker on Player 2's bar
-    }
-
-
-
-
-
 
 }

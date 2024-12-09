@@ -7,7 +7,7 @@ public class Player {
     private static int playerCount = 0;
     private String playerName;
     private int score;
-    private int playerNumber;
+    public int playerNumber;
     public boolean canDouble;
     public boolean hasRolled;
     private int playerMatchscore =0;
