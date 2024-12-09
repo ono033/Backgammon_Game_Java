@@ -6,7 +6,7 @@ public class GameStatus {
     private static String status; // Holds the current game status (e.g., "Backgammon", "Gammon", etc.)
     private static Player winner; // Holds the current game's winner
     private static int points; // Points awarded for the win
-
+    public static int matchStake=1;
 
     // Method to check the game status and determine the winner
     public static boolean checkGameEnd(Board board, Player player1, Player player2) {
@@ -17,7 +17,6 @@ public class GameStatus {
         status = "Ongoing";
         winner = null;
         points = 0;
-
         if (player1win == 15) {
             if (player2win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
                 System.out.println("Backgammon condition met for Player 1.");
@@ -105,6 +104,7 @@ public class GameStatus {
 
 
 
+
     // Getters and Setters
     public static String getStatus() {
         return status;
@@ -114,8 +114,16 @@ public class GameStatus {
         return winner;
     }
 
+    public static int doubleMatchStake(){
+        matchStake=2*matchStake;
+        return matchStake;
+    }
+    public static void resetMatchStake(){
+        matchStake=0;
+    }
+    public static int getMatchStake(){return matchStake;}
     public static int getPointsAwarded() {
-        return points;
+        return matchStake*points;
     }
 
     public void reset() {
