@@ -175,10 +175,10 @@ public class Board {
 
 
     public void setUpBoard() {
-        addCheckerstoPip("X", 1, 2);
-        addCheckerstoPip("X", 12, 5);
-        addCheckerstoPip("X", 17, 3);
-        addCheckerstoPip("X", 20, 5);
+      //  addCheckerstoPip("X", 1, 2);
+       // addCheckerstoPip("X", 12, 5);
+        //addCheckerstoPip("X", 17, 3);
+        addCheckerstoPip("X", 20, 1);
 
         addCheckerstoPip("O", 24, 2);
         addCheckerstoPip("O", 13, 5);
@@ -490,7 +490,7 @@ return MoveType.ILLEGAL;
         ArrayList<ArrayList<Object>> legalMoves = new ArrayList<>();
         int sourceIndex;
         int destinationIndex;
-
+        boolean doubles = false;
         int count = 1;
         if(isPlayerOnBar(playerNumber)) {
 
@@ -522,7 +522,7 @@ return MoveType.ILLEGAL;
 
             //int count = 1;
             // legalMoves[ index, source, destination, no of moves, movetype ]
-                boolean doubles = false;
+
 
             if (rollResult.size()>2 && rollResult.get(0).equals(rollResult.get(1))){
                    doubles = true;
@@ -616,13 +616,44 @@ return MoveType.ILLEGAL;
             }
 
 
+if(!doubles) {
+    // Check if move limits the highest dice from being used
+    int maxDice = Collections.max(rollResult);
 
-        // Check if move limits the highest dice from being used
-        int maxDice = Collections.max(rollResult);
+    int maxDicecount = 0;
+    int maxDiceSourcePipIndex = 0;
 
-        //Check if highest dice only used once
+    //Check if highest dice only used once
+   // ArrayList move = new ArrayList <Object>();
+    for (ArrayList <Object> move:legalMoves) {
 
-        //if yes then find lower dice move thats from same sourcepip and remove it from legalmoves
+        int diceValue = (int) move.get(DICE_VALUE);
+        if (diceValue == maxDice) {
+            maxDiceSourcePipIndex = (int) move.get(SOURCE_PIP);
+            maxDicecount++;
+        }
+
+    }
+
+    if (maxDicecount == 1) {
+        ArrayList<ArrayList<Object>> movesToRemove = new ArrayList<>();
+        //Find lower dice move thats from same sourcepip and remove it from legalmoves
+        // only if from another dice too
+
+        for (ArrayList <Object> move:legalMoves) {
+            int sourcePipIndex = (int)move.get(SOURCE_PIP);
+            int diceValue = (int)move.get(DICE_VALUE);
+            if (sourcePipIndex == maxDiceSourcePipIndex && diceValue != maxDice) {
+                movesToRemove.add(move);
+
+            }
+
+        }
+
+        legalMoves.removeAll(movesToRemove);
+
+    }
+}
 
         return legalMoves;
 
@@ -799,11 +830,12 @@ return MoveType.ILLEGAL;
 
     public void printLegalMoves(ArrayList<ArrayList<Object>> legalMoves, int playerNumber) {
       // System.out.println("Legal Moves:");
+        int moveNumber = 0;
         for (ArrayList<Object> move : legalMoves) {
           //  System.out.println("Move " + move.get(0) + ": From Pip " + move.get(1) + " to Pip " + move.get(2) + ", Dice Value: " + move.get(3) + ", Move Type: " + move.get(4));
          //   System.out.println(move);
            // if(canBearoff(playerDirection()))
-
+            moveNumber++;
             //print source and destination for player 2
             int printSourcePip = (int) move.get(SOURCE_PIP);
             int printDestinationPip = (int) move.get(DESTINATION_PIP);
@@ -813,8 +845,8 @@ return MoveType.ILLEGAL;
                 printSourcePip = 25-printSourcePip;
                 printDestinationPip = 25 - printDestinationPip;
             }
-
-            System.out.println("Move " + move.get(MOVE_INDEX) +
+// + moveNumber
+            System.out.println("Move " + moveNumber +
                     ": From Pip " + printSourcePip +
                     " to Pip " + printDestinationPip +
                     "         Dice Value: " + move.get(DICE_VALUE) +
