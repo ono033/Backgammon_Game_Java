@@ -105,6 +105,10 @@ public class Match{
         }
     }
 
+    public int getMatchLength(){
+        return matchLength;
+    }
+
     public boolean isMatchOver(){
     return matchOver;
     }
@@ -114,6 +118,7 @@ public class Match{
     //printMatchScore();  ono
 
     }
+
 
 
 }
