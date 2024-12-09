@@ -21,5 +21,6 @@ public class TurnManager {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
+
     // Additional methods for handling doubles, skipping players, etc.
 }
