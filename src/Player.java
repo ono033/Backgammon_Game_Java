@@ -10,14 +10,29 @@ public class Player {
     private int playerNumber;
     public boolean canDouble;
     public boolean hasRolled;
+    private int playerMatchscore =0;
 
 
-    public Player(int playerNumber) {
-        this.playerNumber = playerNumber;
+    public Player() {
+        playerCount++;
+        this.playerNumber = playerCount;
         this.score = 0; // Initialize score to 0
         this.canDouble=true;
         this.hasRolled=false;
-        enterPlayerName();
+    }
+    public static void resetPlayercount(){
+        playerCount=0;
+    }
+    public void addPointsToPlayerMatchscore(int add) {
+
+        this.playerMatchscore += add;
+    }
+    public int getPlayerMatchscore(){
+        return playerMatchscore;
+    }
+
+    public void setPlayerMatchscore(int playerMatchscore) {
+        this.playerMatchscore = playerMatchscore;
     }
 
     public String getPlayerName() {
