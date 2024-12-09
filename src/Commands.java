@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class Commands {
 
     private static ArrayList<Integer> customDiceResult = new ArrayList<>();
