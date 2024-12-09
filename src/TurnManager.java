@@ -3,6 +3,7 @@ import java.util.List;
 
 public class TurnManager {
     private List<Player> players;
+
     private static int currentPlayerIndex;
 
     public TurnManager(List<Player> players) {
