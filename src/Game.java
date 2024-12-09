@@ -1,17 +1,19 @@
+
+
 import java.util.*;
 
 
 public class Game {
 //
-
+    public boolean quit=false;
    // GameStatus gameStatus;
     public Game(Player playerOne, Player playerTwo) {
 
         int playerNumber = 1;
-        Player playerOne = new Player(1);
+      //  Player playerOne = new Player(1);
         playerOne.displayPlayerInfo();
 
-        Player playerTwo = new Player(2);
+//        Player playerTwo = new Player(2);
         playerTwo.displayPlayerInfo();
 
         // Add players to a list
@@ -33,11 +35,12 @@ public class Game {
         boolean gameTerminated = false;
         while (true) {
         if (gameTerminated) {
+            quit = true;
             break;
         }
         else {
             System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice!");
-            commandCode = Commands.getCommand(gameBoard);
+            commandCode = Commands.getCommand();
             for (Integer currentCommandCode : commandCode) {
                 if (currentCommandCode == 1) {             // Quit command entered
                     gameTerminated = true;
@@ -60,15 +63,20 @@ public class Game {
                 }
 
 
-                else if (currentCommandCode == 4) {         // Roll command entered
+                else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
 
 
-                    ///// ono added taking turn (regular)
-                    currentPlayer.setHasRolled(true);
                     gameBoard.printBoard(playerNumber);
-                    ArrayList<Integer> rollResult = Commands.Roll();
-                    //rollResult = new ArrayList<>(Arrays.asList(1, 2, 6));
+                    ArrayList<Integer> rollResult = new ArrayList<>();
 
+
+                    if(currentCommandCode ==6){ // if Dice command entered
+                        rollResult = Commands.getCustomDiceResult();
+
+                    }
+                    else {           // Regular Roll
+                        rollResult = Commands.Roll();
+                    }
                     while (true) {
 
                         gameBoard.printBoard(playerNumber); //ono change back !!

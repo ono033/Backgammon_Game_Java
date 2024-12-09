@@ -5,53 +5,58 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Commands {
 
+    private static ArrayList<Integer> customDiceResult = new ArrayList<>();
 
 
- public static ArrayList<Integer> getCommand(Board gameBoard) {
+ public static ArrayList<Integer> getCommand() {
 
 
      ArrayList<Integer> commandCode = new ArrayList<>();
 
 
-    Scanner scanner = new Scanner(System.in);
-    String userInput = scanner.nextLine();
+     Scanner scanner = new Scanner(System.in);
+     String userInput = scanner.nextLine();
 
 
+     if (userInput.equalsIgnoreCase("quit")) {
+         System.out.println("Quitting game..");
+         commandCode.add(1);
+         return commandCode;
+     } else if (userInput.equalsIgnoreCase("roll")) {
+         commandCode.add(4);
+         return commandCode;
+     } else if (userInput.equalsIgnoreCase("test")) {
+         commandCode = Commands.Test();
+         return commandCode;
+     } else if (userInput.equalsIgnoreCase("hint")) {
+         commandCode.add(2);
+         return commandCode;
 
-    if (userInput.equalsIgnoreCase("quit")) {
-        System.out.println("Quitting game..");
-        commandCode.add(1);
-        return commandCode;
-    } else if (userInput.equalsIgnoreCase("roll")) {
-        commandCode.add(4);
-        return commandCode;
-    } else if (userInput.equalsIgnoreCase("test")) {
-        commandCode = Commands.Test();
-        return commandCode;
-    } else if (userInput.equalsIgnoreCase("hint")) {
-        commandCode.add(2);
-        return commandCode;
-
-    } else if (userInput.equalsIgnoreCase("pip")) {
-        commandCode.add(3);
-        return commandCode;
-    } else if (userInput.equalsIgnoreCase("double")) {
+     } else if (userInput.equalsIgnoreCase("pip")) {
+         commandCode.add(3);
+         return commandCode;
+     } else if (userInput.matches("(?i)^dice \\d+ \\d+$")) {
+         int code = customDiceprocessInput(userInput);
+         if (code == 6) {
+             commandCode.add(code);
+             return commandCode;
+         }
+     } else if (userInput.equalsIgnoreCase("double")) {
          commandCode.add(7);
          return commandCode;
-     }
-     else if (userInput.equalsIgnoreCase("doubleStatus")) {
+     } else if (userInput.equalsIgnoreCase("doubleStatus")) {
          commandCode.add(9);
          return commandCode;
-     }
-     else {
+     } else {
          commandCode.add(8);
-        return commandCode;
-    }
-
+         return commandCode;
+     }
+return commandCode;
  }
 
 
@@ -99,6 +104,7 @@ public class Commands {
             System.out.println("'test': Input a .txt file with a list of commands for the game to execute");
             System.out.println("'pip': Reports the pip count for both players");
             System.out.println("'hint': List all allowed commands");
+            System.out.println("'dice <int> <int>': Set the dice roll eg: \"dice 2 4\" ");
             System.out.println("'double': The player who owns the double cube can propose to double the stakes of the game");
             System.out.println("'doubleStatus': Displays the name of the player who owns the doubling cube");
             System.out.println("---------------------------------------");
@@ -112,7 +118,7 @@ public class Commands {
         int opips=0;
         int invertXpip=0;
         for(int i=1; i<=24;i++){
-            for(int j=0;j<=5;j++){
+            for(int j=0;j<=4;j++){
                 Checker checker = board.getChecker(i, j);
                 if (checker == null) {
                     continue; // Skip to the next iteration if there's no checker or type is null
@@ -133,7 +139,7 @@ public class Commands {
         public static void Double(Player doublingPlayer, Player receivingPlayer){
         if (doublingPlayer.canDouble && !doublingPlayer.hasRolled ){
             System.out.println(doublingPlayer.getPlayerName()+ " has offered a double!");
-            System.out.println("The current stakes are:");
+            System.out.println("The current stakes are: " + GameStatus.getMatchStake());
             System.out.println(receivingPlayer.getPlayerName()+ ", would you like to accept? (Yes/No)");
 
             Scanner scanner = new Scanner(System.in);
@@ -141,15 +147,17 @@ public class Commands {
 
             if (userInput.equalsIgnoreCase("yes")) {
                 System.out.println("Stakes doubled!");
-                System.out.println("Current stakes are:");
+                GameStatus.doubleMatchStake();
+
+                System.out.println("Current stakes are: " + GameStatus.getMatchStake());
                 System.out.println(receivingPlayer.getPlayerName()+ ", you are now the owner of the doubling cube!");
                 doublingPlayer.setCanDouble(false);
                 receivingPlayer.setCanDouble(true);
             }
             else if (userInput.equalsIgnoreCase("no")) {
                 System.out.println("Stakes not doubled.");
-                System.out.println(receivingPlayer.getPlayerName()+ ", you must now concede the game and pay one point");
-
+                System.out.println(receivingPlayer.getPlayerName()+ ", you must now concede the game and pay one stake per point");
+                doublingPlayer.setPlayerMatchscore(GameStatus.getMatchStake());
             }
         }
         else {
@@ -164,6 +172,7 @@ public class Commands {
         else{
             System.out.println(player2.getPlayerName() + " owns the doubling cube!" );
         }
+        System.out.println("The current match stake is " + GameStatus.getMatchStake());
 
         }
 
@@ -202,6 +211,11 @@ public class Commands {
                 return 3;
 
             }
+            else if(line.matches("(?i)^dice \\d+ \\d+$")){
+
+                customDiceprocessInput(line);  //update custom dice
+                return 6;
+            }
              else if (line.equalsIgnoreCase("double")) {
                 return 7;
             }
@@ -213,7 +227,56 @@ public class Commands {
             }
         }
 
+    public static int customDiceprocessInput(String userInput) { //added by ono
 
+
+        Pattern pattern = Pattern.compile("^dice (\\d+) (\\d+)$");
+        Matcher matcher = pattern.matcher(userInput.toLowerCase());
+
+        if (matcher.find()) {
+            try {
+                int dice1 = Integer.parseInt(matcher.group(1)); // First number
+                int dice2 = Integer.parseInt(matcher.group(2)); // Second number
+
+
+                // Validate the dice values
+                if (dice1 >= 1 && dice1 <= 6 && dice2 >= 1 && dice2 <=6) {
+
+                    setCustomDice(dice1,dice2);
+
+                    return 6;
+
+
+                } else {
+                    System.out.println("Custom Dice values must be between 1 and 6. Enter valid command:");
+                    return -1;
+                }
+
+            }
+
+            catch (NumberFormatException e) {
+                System.out.println("Error: Invalid number format. Please enter valid integers.  \nEnter valid command:");
+            }
+        }
+        return -1;
+    }
+
+
+
+    public static void setCustomDice(int dice1, int dice2) {
+        customDiceResult.clear();
+        customDiceResult.add(dice1);
+        customDiceResult.add(dice2);
+        System.out.println("Custom dice set to: " + customDiceResult);
+    }
+
+    public static ArrayList<Integer> getCustomDiceResult() {
+        //  System.out.println("checkpoint in command");
+        return customDiceResult;
+    }
 }
+
+
+
 
 
