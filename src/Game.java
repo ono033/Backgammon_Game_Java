@@ -11,7 +11,7 @@ public class Game {
       //  Player playerOne = new Player(1);
         playerOne.displayPlayerInfo();
 
-//        Player playerTwo = new Player(2);
+//      Player playerTwo = new Player(2);
         playerTwo.displayPlayerInfo();
 
         // Add players to a list
