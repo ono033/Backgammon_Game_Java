@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Syntax {
-    // Set of valid commands
+
     private static final Set<String> VALID_COMMANDS = new HashSet<>();
 
     static {
@@ -35,25 +35,5 @@ public class Syntax {
         }
     }
 
-    // Main method for testing
-    public static void main(String[] args) {
-        Syntax syntax = new Syntax();
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter a command to test ('quit' to exit):");
-
-        while (true) {
-            String input = scanner.nextLine();
-
-            if ("quit".equalsIgnoreCase(input)) {
-                System.out.println("Exiting test.");
-                break;
-            }
-
-            boolean isValid = syntax.validateCommand(input);
-            System.out.println("Command '" + input + "' is " + (isValid ? "valid." : "invalid."));
-        }
-
-        scanner.close();
-    }
 }

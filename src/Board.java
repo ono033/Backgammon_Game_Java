@@ -65,7 +65,7 @@ public class Board {
 
     // Prints all checkers on both bars
     public void printBar(){
-        System.out.print("Bar:");
+
         for(Checker checker: player1Bar){
             System.out.print(checker + ",    "  );
         }

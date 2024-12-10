@@ -2,16 +2,17 @@ import java.util.*;
 
 
 public class Game {
-//
+
     public boolean quit=false;
-   // GameStatus gameStatus;
+
+    // GameStatus gameStatus;
     public Game(Player playerOne, Player playerTwo) {
 
         int playerNumber = 1;
-      //  Player playerOne = new Player(1);
+
         playerOne.displayPlayerInfo();
 
-//      Player playerTwo = new Player(2);
+
         playerTwo.displayPlayerInfo();
 
         // Add players to a list
@@ -27,7 +28,7 @@ public class Game {
         ArrayList<Integer> commandCode = new ArrayList<>();
         System.out.println("Game Starting...");
         Board gameBoard = new Board();
-        gameBoard.printBoard(playerNumber);
+        //gameBoard.printBoard(currentPlayer.playerNumber);
 
 
         boolean gameTerminated = false;
@@ -37,7 +38,8 @@ public class Game {
             break;
         }
         else {
-            System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice!");
+            gameBoard.printBoard(currentPlayer.playerNumber);
+            System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice! type \"hint\" for all commands");
             commandCode = Commands.getCommand();
             for (Integer currentCommandCode : commandCode) {
                 if (currentCommandCode == 1) {             // Quit command entered
@@ -64,7 +66,7 @@ public class Game {
                 else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
 
 
-                    gameBoard.printBoard(playerNumber);
+                    gameBoard.printBoard(currentPlayer.playerNumber);
                     ArrayList<Integer> rollResult = new ArrayList<>();
 
 
@@ -77,21 +79,18 @@ public class Game {
                     }
                     while (true) {
 
-                        gameBoard.printBoard(playerNumber); //ono change back !!
+                        gameBoard.printBoard(currentPlayer.playerNumber);
                         gameBoard.printBar();
-                        System.out.print("\n\nPlayer " + playerNumber + " Remaining dice: " + rollResult);
-                        gameBoard.takeTurn(playerNumber, rollResult);
+                        System.out.print("\n\nPlayer " + currentPlayer.playerNumber + " Remaining dice: " + rollResult);
+                        gameBoard.takeTurn(currentPlayer.playerNumber, rollResult);
                         if (rollResult.isEmpty()) break;         //once all dice used up
                         turnManager.nextTurn();
                         currentPlayer = turnManager.getCurrentPlayer();
 
                     }
 
-                    //////
-                    //Seun Attempt at Integration
-                    // Check game status after a turn
-                   // boolean gameEnded = GameStatus.checkGameEnd(gameBoard, playerOne, playerTwo);
-                    if (GameStatus.checkGameEnd(gameBoard, playerOne, playerTwo)) {
+
+                    if (GameStatus.checkGameEnd(gameBoard, currentPlayer, turnManager.getOtherPlayer())) {
                         System.out.println("Game Over:");
                         System.out.println("Winner: " + GameStatus.getWinner().getPlayerName());
                         System.out.println("Winning Status: " + GameStatus.getStatus());
@@ -101,38 +100,17 @@ public class Game {
                         gameBoard.initialiseVariables(); // Reset the board
                         gameBoard.setUpBoard();          // Set up for a new game
                         gameTerminated = true;           // End the game loop
-/// end of seun stuff
+
 
                     }
 
                 }
             }
-            //Game game = new Game();
 
         }
+
         }
-
-
-
-
-
-
-
-       /* Player player1 = new Player();
-        Player player2 = nw Player();
-        Board board = new Board();
-
-
-
-
-
-        board.setUpBoard();
-        board.printBoard(1);
-        board.printBoard(2);
-*/
-
 
     }
-
 
 }

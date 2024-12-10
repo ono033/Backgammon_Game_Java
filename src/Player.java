@@ -1,4 +1,4 @@
-//package src;
+
 
 import java.util.Scanner;
 
@@ -74,13 +74,5 @@ public class Player {
     }
 
 
-
-    //public static void main(String[] args) {
-      // Player player = new Player();
-       //player.displayPlayerInfo();
-    //}
-    //doubleStatus(int doublingPlayer, receivingPlayer){
-
-    //}
 
 }
