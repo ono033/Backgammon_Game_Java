@@ -1,3 +1,4 @@
+package org.example;
 import java.util.Scanner;
 
 public class Match{
@@ -17,7 +18,11 @@ public class Match{
         players = new Player[2];
 
         players[0] = new Player(); // Player One
+        players[0].enterPlayerName();
         players[1] = new Player();   // Player Two
+        players[1].enterPlayerName();
+
+        DetermineFirstPlayer.determineFirstPlayer(players[0],players[1]);
 
         setMatchLength();
 
@@ -30,6 +35,9 @@ public class Match{
              //while(true) { //- if the game doesn't end inside game or game status?
             Game game = new Game(players[0], players[1]);
             System.out.println("Game over .. "); // remove ono is already printed by someone else
+            if (game.quit){
+                matchOver = true;
+            }
 
 
             //  if(!game.isgameOver){ // need to make this function or similar
