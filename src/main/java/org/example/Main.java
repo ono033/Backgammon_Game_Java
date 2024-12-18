@@ -18,7 +18,7 @@ public class Main {
 
                 Match match = new Match();
 
-               if (match.isMatchOver()){  //ono check this line not sure if ok
+               if (match.isMatchOver()){
                     System.out.println("Match Over");
                     continue;
                 }

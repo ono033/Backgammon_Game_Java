@@ -139,7 +139,7 @@ return commandCode;
         System.out.println("Number of pips for Player 2: "+ xpips);
         }
 
-        public static void Double(Player doublingPlayer, Player receivingPlayer){
+        public static boolean Double(Player doublingPlayer, Player receivingPlayer){
         if (doublingPlayer.canDouble && !doublingPlayer.hasRolled ){
             System.out.println(doublingPlayer.getPlayerName()+ " has offered a double!");
             System.out.println("The current stakes are: " + GameStatus.getMatchStake());
@@ -161,12 +161,13 @@ return commandCode;
                 System.out.println("Stakes not doubled.");
                 System.out.println(receivingPlayer.getPlayerName()+ ", you must now concede the game and pay one stake per point");
                 doublingPlayer.setPlayerMatchscore(GameStatus.getMatchStake());
+                return true;
             }
         }
         else {
             System.out.println(doublingPlayer.getPlayerName()+ ", you are not allowed to double.");
         }
-
+        return false;
         }
         public static void doubleStatus(Player player1, Player player2){
         if (player1.canDouble){
@@ -195,6 +196,7 @@ return commandCode;
                 }
             } catch (IOException e) {
                 System.err.println("Error reading the file: " + e.getMessage());
+                System.err.println("Please enter the test command again");
             }
             return fileCommandCodes;
         }

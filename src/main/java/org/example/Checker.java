@@ -65,7 +65,7 @@ public class Checker {
         return type == CheckerProperties.X ? "X" : "O";
     }
 
-    // public void isDifferntType(){}
+
 
 
 

@@ -5,6 +5,7 @@ import java.util.*;
 public class Game {
 //
     public boolean quit=false;
+    public boolean endCurrentGame=false;
    // GameStatus gameStatus;
     public Game(Player playerOne, Player playerTwo) {
 
@@ -37,8 +38,12 @@ public class Game {
             quit = true;
             break;
         }
+        else if(endCurrentGame) {
+            break;
+        }
         else {
-            System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice!");
+            //gameBoard.printBoard(currentPlayer.getPlayerNumber());
+            System.out.println("Player " + currentPlayer.getPlayerNumber() + ", time to roll the dice! (type 'hint' to see other commands)");
             commandCode = Commands.getCommand();
             for (Integer currentCommandCode : commandCode) {
                 if (currentCommandCode == 1) {             // Quit command entered
@@ -52,7 +57,7 @@ public class Game {
                     Commands.Pips(gameBoard);
                 }
                 else if(currentCommandCode == 7) {
-                    Commands.Double(currentPlayer,turnManager.getOtherPlayer());
+                    endCurrentGame=Commands.Double(currentPlayer,turnManager.getOtherPlayer());
                 }
                 else if(currentCommandCode == 9) {
                     Commands.doubleStatus(currentPlayer,turnManager.getOtherPlayer());
@@ -65,7 +70,7 @@ public class Game {
                 else if (currentCommandCode == 4 || currentCommandCode==6) {         // Roll command entered or dice command entered
 
 
-                    gameBoard.printBoard(playerNumber);
+                  //  gameBoard.printBoard(playerNumber);
                     ArrayList<Integer> rollResult = new ArrayList<>();
 
 
@@ -115,7 +120,8 @@ public class Game {
         }
         }
 
-
+    playerOne.setScore(playerOne.getScore()+playerOne.getPlayerMatchscore());
+        playerTwo.setScore(playerTwo.getScore()+playerTwo.getPlayerMatchscore());
 
 
 
