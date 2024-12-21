@@ -76,8 +76,10 @@ public class Match{
      */
     public void announceMatchwinner(Player winningPlayer){
 
-    System.out.println("Congratulations, the winner is ......" + winningPlayer.getPlayerName() + "\n with a score of " + winningPlayer.getPlayerMatchscore()  );
+        System.out.println("-------------------MATCH OVER--------------\n");
 
+    System.out.println("Congratulations, the overall winner is ......" + winningPlayer.getPlayerName() + "\n With a score of " + winningPlayer.getScore()+ "!" );
+        System.out.println("-------------------------------------------\n");
 
 }
     /**
@@ -85,7 +87,7 @@ public class Match{
      */
     public void setMatchLength() {
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println("-------------------------------------------\n");
         while (true) {
             try {
                 System.out.println("Enter Match Length (positive integer): ");
@@ -115,7 +117,7 @@ public class Match{
         for (Player player : players) {
             System.out.println(player.getPlayerName() + ": " + player.getPlayerMatchscore() + " points");
         }
-        System.out.println("-----------------------------");
+        System.out.println("-------------------------------------------\n");
     }
 
     /**
@@ -123,7 +125,11 @@ public class Match{
      * has reached or exceeded the match length.
      */
     public void updateMatchOver() {
-        
+        System.out.println("--- Overall Scores ---\n");
+
+        for(Player player:players){
+            player.displayPlayerInfo();
+        }
     for(Player player:players){
             if (player.getScore() >=matchLength){
                 Player winningPlayer = player;

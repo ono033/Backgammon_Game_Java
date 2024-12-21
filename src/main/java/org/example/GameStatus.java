@@ -20,53 +20,46 @@ public class GameStatus {
         points = 0;
         if (player1win == 15) {
             if (player2win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 1)) {
-                System.out.println("Backgammon condition met for Player 1.");
-                player1.setScore(player1.getScore() + 3);
                 status = "Backgammon";
                 winner = player1;
                 points = 3;
             } else if (player2win == 0) {
-                System.out.println("Gammon condition met for Player 1.");
-                player1.setScore(player1.getScore() + 2);
                 status = "Gammon";
                 winner = player1;
                 points = 2;
             } else {
-                System.out.println("Single Game Win for Player 1.");
-                player1.setScore(player1.getScore() + 1);
                 status = "Single";
                 winner = player1;
                 points = 1;
             }
+            player1.setPlayerMatchscore(getPointsAwarded());
         }
         if (player2win == 15) {
             if (player1win == 0 && !board.getPlayerbar(2).isEmpty() && hasCheckersInOpponentHome(board, 2)) {
-                System.out.println("Backgammon condition met for Player 2.");
-                player2.setScore(player2.getScore() + 3);
                status = "Backgammon";
                 winner = player2;
                 points = 3;
             } else if (player1win == 0) {
-                System.out.println("Gammon condition met for Player 2.");
-                player2.setScore(player2.getScore() + 2);
                 status = "Gammon";
                 winner = player2;
                 points = 2;
             } else {
-                System.out.println("Single Game Win for Player 2.");
-                player2.setScore(player2.getScore() + 1);
                 status = "Single";
                 winner = player2;
                points = 1;
             }
+            player2.setPlayerMatchscore(getPointsAwarded());
         }
 
 
 
         // Print the winning statement if a winner is detected
         if (winner != null) {
-            System.out.println("Game over!");
+            System.out.println("-------------------------------------------\n");
+
             System.out.println(winner.getPlayerName() + " wins with a " + status + "! (" + points + " points)");
+            System.out.println("-------------------------------------------\n");
+System.out.println("The current match stake is "+matchStake+", so the total points awarded are " + getPointsAwarded());
 
             return true; // Game ended
         }
@@ -123,9 +116,7 @@ public class GameStatus {
         matchStake=0;
     }
     public static int getMatchStake(){return matchStake;}
-    public static int getPointsAwarded() {
-        return matchStake*points;
-    }
+    public static int getPointsAwarded(){return matchStake*points;}
 
     public void reset() {
         status = "Ongoing";
