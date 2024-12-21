@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
 
+
     public static void main(String[] args) {
         // Initial greeting to the player
         System.out.println("Welcome to Backgammon");

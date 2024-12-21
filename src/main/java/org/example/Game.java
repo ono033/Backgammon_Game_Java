@@ -2,6 +2,7 @@ package org.example;
 import java.util.*;
 
 
+
 public class Game {
     // Indicates if the user wants to quit completely
     public boolean quit=false;

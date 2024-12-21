@@ -4,6 +4,7 @@ import java.util.Random;
 //
 public class DetermineFirstPlayer {
 
+
     public static void determineFirstPlayer(Player firstPlayer, Player secondPlayer) {
         // Create a random number generator for dice rolls
         Random random = new Random();

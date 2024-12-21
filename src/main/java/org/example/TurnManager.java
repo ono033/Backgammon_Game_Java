@@ -15,6 +15,7 @@ public class TurnManager {
         this.currentPlayerIndex = 0;
     }
 
+
     public Player getCurrentPlayer() {
         // Return the player whose turn it currently is
         return players.get(currentPlayerIndex);

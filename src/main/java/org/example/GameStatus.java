@@ -4,6 +4,7 @@ import java.util.ArrayList;
 //Code to check Game status
 public class GameStatus {
 
+
     private static String status; // Holds the current game status (e.g., "Backgammon", "Gammon", etc.)
     private static Player winner; // Holds the current game's winner
     private static int points; // Points awarded for the win

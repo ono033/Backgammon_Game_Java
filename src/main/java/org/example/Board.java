@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Collections;
 
+
 public class Board {
     public static final int NUMBEROFPIPS = 24; // The standard backgammon board has 24 points (pips)
 

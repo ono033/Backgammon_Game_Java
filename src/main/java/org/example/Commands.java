@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class Commands {
 
+
     // Holds custom dice results if the user sets them
     private static ArrayList<Integer> customDiceResult = new ArrayList<>();
 
